@@ -1,3 +1,6 @@
+<!--/**
+* !Componente para traer las personas que coincidan con la busqueda y se encuentren en la base de personas bloqueadas
+--->
 <template>
   <v-container
     id="regular-tablesS"

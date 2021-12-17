@@ -43,13 +43,20 @@
     },
     created () {
       const today = new Date()
-      const date = today.getDate() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + today.getFullYear()
-      const time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
+      const date =
+        today.getDate() +
+        '-' +
+        ('0' + (today.getMonth() + 1)).slice(-2) +
+        '-' +
+        today.getFullYear()
+      const time =
+        today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
       const dateTime = date + ' ' + time
       this.date = dateTime
     },
     methods: {
       pdfPrint: async function () {
+        console.log(this.user)
         var cont = []
         cont = await this.simpleTxtPrint()
         if (pdfMake.vfs === undefined) {
@@ -84,12 +91,13 @@
             },
           },
           defaultStyle: {
-            // alignment: 'justify'
+          // alignment: 'justify'
           },
         }
         pdfMake.createPdf(docDefinition).download(this.date + '.pdf')
       },
       simpleTxtPrint: async function () {
+        console.log(this.user.data.displayName, 'awa')
         var cont = [
           {
             image: imgReq,
@@ -97,17 +105,75 @@
             absolutePosition: { x: 0, y: 0 },
           },
           { text: this.txt, style: 'header' },
-          { text: 'Petición para el área de sistemas: [225645]', absolutePosition: { x: 10, y: 100 }, fontSize: 15, alignment: 'center', italics: true },
-          { text: 'Fecha:', absolutePosition: { y: 130 }, fontSize: 13, italics: true, alignment: 'right' },
-          { text: '1.Información del socio o datos de referencía', absolutePosition: { x: 30, y: 150 }, fontSize: 13, italics: true },
-          { text: '1asdasda', absolutePosition: { x: 50, y: 170 }, fontSize: 13, italics: true },
-          { text: '2.Tipo de solicitud:', absolutePosition: { x: 30, y: 260 }, fontSize: 13, italics: true },
-          { text: '1asdasda', absolutePosition: { x: 50, y: 280 }, fontSize: 13, italics: true },
-          { text: '3. Motivo o descripción de la solicitud', absolutePosition: { x: 30, y: 330 }, fontSize: 13, italics: true },
-          { text: 'loresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloreslores', absolutePosition: { x: 50, y: 350 }, fontSize: 13, italics: true },
-          { text: '4. Cantidad', absolutePosition: { x: 30, y: 470 }, fontSize: 13, italics: true },
-          { text: '1asdasda', absolutePosition: { x: 150, y: 490 }, fontSize: 13, italics: true },
-          { text: 'Sonia Pinedo', absolutePosition: { x: 280, y: 630 }, fontSize: 13, italics: true },
+          {
+            text: 'Petición para el área de sistemas: [225645]',
+            absolutePosition: { x: 10, y: 100 },
+            fontSize: 15,
+            alignment: 'center',
+            italics: true,
+          },
+          {
+            text: 'Fecha:',
+            absolutePosition: { y: 130 },
+            fontSize: 13,
+            italics: true,
+            alignment: 'right',
+          },
+          {
+            text: '1.Información del socio o datos de referencía',
+            absolutePosition: { x: 30, y: 150 },
+            fontSize: 13,
+            italics: true,
+          },
+          {
+            text: '1asdasda',
+            absolutePosition: { x: 50, y: 170 },
+            fontSize: 13,
+            italics: true,
+          },
+          {
+            text: '2.Tipo de solicitud:',
+            absolutePosition: { x: 30, y: 260 },
+            fontSize: 13,
+            italics: true,
+          },
+          {
+            text: '1asdasda',
+            absolutePosition: { x: 50, y: 280 },
+            fontSize: 13,
+            italics: true,
+          },
+          {
+            text: '3. Motivo o descripción de la solicitud',
+            absolutePosition: { x: 30, y: 330 },
+            fontSize: 13,
+            italics: true,
+          },
+          {
+            text:
+              'loresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloreslores',
+            absolutePosition: { x: 50, y: 350 },
+            fontSize: 13,
+            italics: true,
+          },
+          {
+            text: '4. Cantidad',
+            absolutePosition: { x: 30, y: 470 },
+            fontSize: 13,
+            italics: true,
+          },
+          {
+            text: '1asdasda',
+            absolutePosition: { x: 150, y: 490 },
+            fontSize: 13,
+            italics: true,
+          },
+          {
+            text: this.user.data.displayName,
+            absolutePosition: { x: 260, y: 630 },
+            fontSize: 13,
+            italics: true,
+          },
         ]
         return cont
       },

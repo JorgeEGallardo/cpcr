@@ -123,6 +123,8 @@
         button: true,
         keywords: ['adelante', 'entendido', 'confirmo', 'correcto', 'seguir'],
         items: [
+          'Liberación de ahorro',
+          'Habilitacion de Fechas anteriores',
           'Cancelación de póliza',
           'Cancelación Movimiento',
           'Cambio en el formato',

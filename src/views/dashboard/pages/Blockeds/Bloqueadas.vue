@@ -1,5 +1,5 @@
 <!--
-Componente para traer las personas que coincidan con la busqueda y se encuentren en la base de personas bloqueadas
+//*Componente para traer las personas que coincidan con la busqueda y se encuentren en la base de personas bloqueadas
 --->
 <template>
   <v-container
@@ -11,7 +11,6 @@ Componente para traer las personas que coincidan con la busqueda y se encuentren
       link="components/simple-tables"
     />
     <v-text-field
-      v-model="search"
       :label="$t('search')"
       color="secondary"
       hide-details
