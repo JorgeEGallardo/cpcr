@@ -2,6 +2,20 @@
   <span style="margin:0px">
     <div>
       <v-btn
+        v-if="only"
+        color="blue-grey"
+        class="ma-2 white--text"
+        @click="pdfPrint"
+      >
+        <v-icon
+          right
+          dark
+        >
+          mdi-cloud-upload
+        </v-icon>
+      </v-btn>
+      <v-btn
+        v-else
         color="blue-grey"
         class="ma-2 white--text"
         @click="pdfPrint"
@@ -26,6 +40,8 @@
     name: 'Pdfgen',
     props: {
       request: { type: String, default: null },
+      id: { type: String, default: null },
+      only: { type: Boolean, default: null },
     },
     data () {
       return {

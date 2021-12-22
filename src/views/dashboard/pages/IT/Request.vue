@@ -142,7 +142,7 @@
           quantity: '',
           user: this.$store.state.user.data.displayName,
           date_cap: firebase.firestore.Timestamp.fromDate(new Date()),
-          state: 0,
+          state: 1,
         },
       }
     },

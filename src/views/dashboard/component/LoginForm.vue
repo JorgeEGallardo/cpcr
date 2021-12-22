@@ -127,11 +127,7 @@
                     name: this.form.name,
                     email: this.form.email,
                     uid: data.user.uid,
-                    permissions: [{
-                      icon: 'mdi-table-lock',
-                      title: 'Solicitar la búsqueda de un socio',
-                      to: '/solicitud',
-                    }],
+                    permissions: [],
                   })
                   this.$refs.form.reset()
                 })

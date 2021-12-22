@@ -54,9 +54,31 @@ const router = new Router({
           requiresAuth: true,
         },
         {
+          name: 'Solicitudes a sistemas',
+          path: '/SolicitudesIT',
+          component: () => import('@/views/dashboard/pages/IT/Requests'),
+          requiresAuth: true,
+        }, {
+          name: 'Permisos',
+          path: '/AdminPermisos',
+          component: () => import('@/views/dashboard/pages/root/Index'),
+          requiresAuth: true,
+        },
+        {
           name: 'Mis solicitudes',
           path: '/Seguimiento',
           component: () => import('@/views/dashboard/pages/IT/Tracking'),
+          requiresAuth: true,
+        },
+        {
+          name: 'Calendario',
+          path: '/Calendario',
+          component: () => import('@/views/dashboard/pages/Schedule/Index'),
+          requiresAuth: true,
+        }, {
+          name: 'Agenda',
+          path: '/agenda',
+          component: () => import('@/views/dashboard/pages/Schedule/IndexOwn'),
           requiresAuth: true,
         },
         {

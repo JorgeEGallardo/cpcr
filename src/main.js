@@ -22,8 +22,11 @@ import './plugins/chartist'
 import './plugins/vee-validate'
 import vuetify from './plugins/vuetify'
 import i18n from './i18n'
-
+import VueTextareaAutosize from 'vue-textarea-autosize'
 Vue.config.productionTip = false
+
+Vue.use(VueTextareaAutosize)
+
 // Firebase app
 const firebaseConfig = {
   apiKey: 'AIzaSyAVmodydqJQvNsKvzeH_jutNXe-XNZtIoQ',

@@ -59,6 +59,7 @@
         body: { type: Array, default: () => [] },
         date: new Date(),
         clients: false,
+        title: this.date + this.find + this.person + '.pdf',
       }
     },
     computed: {
@@ -139,7 +140,7 @@
             // alignment: 'justify'
           },
         }
-        pdfMake.createPdf(docDefinition).download(this.date + '.pdf')
+        pdfMake.createPdf(docDefinition).download(this.title)
       },
       masivePrint: async function (route, info, cont) {
         alert('Calculado datos')
