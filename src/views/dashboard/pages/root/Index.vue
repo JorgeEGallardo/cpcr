@@ -63,6 +63,13 @@
                     outlined
                     class="purple-input"
                   />
+                  <v-text-field
+                    id="curp"
+                    v-model="formData.prio"
+                    label="to"
+                    outlined
+                    class="purple-input"
+                  />
                 </v-col>
 
                 <v-col
@@ -80,13 +87,64 @@
               </v-row>
             </v-container>
           </v-form>
-          <v-btn
-            color="primary"
-            class="mr-0"
-            @click="restartPerm"
-          >
-            Reiniciar permisos
-          </v-btn>
+
+          <v-container class="py-0">
+            <v-btn
+              color="primary"
+              class="mr-0"
+              @click="restartPerm"
+            >
+              Reiniciar permisos
+            </v-btn>
+            <v-btn
+              color="primary"
+              class="mr-0"
+              @click="getUsers()"
+            >
+              Usuarios
+            </v-btn>
+            <hr>
+            <v-select
+              v-model="userPerm"
+              :items="allUsers"
+              label="Standard"
+              @change="getUser()"
+            />
+            <v-form>
+              <v-simple-table>
+                <thead>
+                  <tr>
+                    <th />
+                    <th class="subheading font-weight-light text-center">
+                      Free
+                    </th>
+                    <th class="subheading font-weight-light text-center">
+                      PRO
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="text-center">
+                  <tr
+                    v-for="item in perm"
+                    :key="item"
+                  >
+                    <td>{{ item.id }}</td><td>{{ item.title }}</td><td>{{ item.to }}</td><td>
+                      <v-checkbox
+                        v-model="item.inArray"
+                        :label="item.inArray"
+                        color="primary"
+                        value="true"
+                        hide-details
+                      />
+                    </td>
+                  </tr>
+                  <v-btn @click="updatePerm">
+                    Actualizar
+                  </v-btn>
+                </tbody>
+              </v-simple-table>
+            </v-form>
+          </v-container>
         </base-material-card>
       </v-col>
     </v-row>
@@ -102,14 +160,19 @@
     data: () => ({
       links: {
       },
+      userPerm: '',
+      allUsers: [],
+      perm: [],
+      permArray: [],
       formData: {
         to: '',
         icon: '',
         title: '',
+        prio: 3,
       },
     }),
     created () {
-
+      this.getUsers()
     },
     methods: {
       perm (icon, title, to) {
@@ -123,12 +186,77 @@
       createPerm: async function () {
         const data = this.formData
         db.collection('permissions').add({ ...data })
+        this.addAllPerm()
+      },
+      addAllPerm: async function () {
+        db
+          .collection('permissions')
+          .get().then((snapshot) => {
+            const perm = []
+            snapshot.forEach((doc) => {
+              perm.push(doc.id)
+            })
+            alert('Hubo un error')
+            db
+              .collection('users')
+              .doc('A0LFHdIWxSQoPznjWwwYIKWcnRr1')
+              .update({ permissions: perm })
+          })
+      },
+      updatePerm: async function () {
+        await db.collection('users').where('email', '==', this.userPerm).get().then((snapshot) => {
+          snapshot.forEach(async (doc) => {
+            try {
+              const permToUpdate = []
+              this.perm.forEach((elem) => {
+                if (elem.inArray === 'true') {
+                  if (elem.prio === 1) {
+                    permToUpdate.unshift(elem.id)
+                  } else {
+                    permToUpdate.push(elem.id)
+                  }
+                }
+              })
+              db.collection('users').doc(doc.id).update({ permissions: permToUpdate })
+            } catch (error) {
+              alert(error)
+            } finally {
+              alert('Registro actualizado con exito')
+            }
+          })
+        })
+      },
+      getUser: async function () {
+        await db.collection('users').where('email', '==', this.userPerm).get().then((snapshot) => {
+          snapshot.forEach(async (doc) => {
+            this.permArray = doc.data().permissions
+            this.perm = []
+            await db.collection('permissions').get().then((snapshot) => {
+              snapshot.forEach((element) => {
+                if (this.permArray.includes(element.id)) {
+                  this.perm.push({ ...element.data(), inArray: true, id: element.id })
+                } else {
+                  this.perm.push({ ...element.data(), inArray: false, id: element.id })
+                }
+              })
+            })
+          })
+        })
+      },
+      getUsers: async function () {
+        db
+          .collection('users')
+          .get().then((snapshot) => {
+            snapshot.forEach((doc) => {
+              this.allUsers.push(doc.data().email)
+            })
+          })
       },
       restartPerm: async function () {
         await db.collection('users').get().then(function (querySnapshot) {
           querySnapshot.forEach(function (doc) {
             doc.ref.update({
-              permissions: [],
+              permissions: ['RU2tX44HGpClAr9btgdX', '34SzhwzcB9jMudbZMadF', 'UHBm2SuTR71t5SvII6RS', 'bQ4NyLYwjeT0QSa1lfDM'],
             })
           })
         })

@@ -36,6 +36,7 @@
   import pdfMake from 'pdfmake/build/pdfmake'
   import { mapGetters } from 'vuex'
   import { imgReq } from '@/assets/request.js'
+  import { db } from '@/main'
   export default {
     name: 'Pdfgen',
     props: {
@@ -49,6 +50,7 @@
         body: { type: Array, default: () => [] },
         date: new Date(),
         clients: false,
+        doc: [],
       }
     },
     computed: {
@@ -60,19 +62,16 @@
     created () {
       const today = new Date()
       const date =
-        today.getDate() +
-        '-' +
-        ('0' + (today.getMonth() + 1)).slice(-2) +
-        '-' +
-        today.getFullYear()
-      const time =
-        today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
+        today.getDate() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + today.getFullYear()
+      const time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
       const dateTime = date + ' ' + time
       this.date = dateTime
+      db.collection('IT').doc(this.request).get().then((doc) => {
+        this.doc = { ...doc.data(), id: doc.id }
+      })
     },
     methods: {
       pdfPrint: async function () {
-        console.log(this.user)
         var cont = []
         cont = await this.simpleTxtPrint()
         if (pdfMake.vfs === undefined) {
@@ -113,7 +112,7 @@
         pdfMake.createPdf(docDefinition).download(this.date + '.pdf')
       },
       simpleTxtPrint: async function () {
-        console.log(this.user.data.displayName, 'awa')
+        const { description, quantity, reason, socio, user } = this.doc
         var cont = [
           {
             image: imgReq,
@@ -122,15 +121,15 @@
           },
           { text: this.txt, style: 'header' },
           {
-            text: 'Petición para el área de sistemas: [225645]',
-            absolutePosition: { x: 10, y: 100 },
+            text: 'Petición para el área de sistemas:\n [' + this.doc.id.slice(0, 6) + ']',
+            absolutePosition: { x: 20, y: 100 },
             fontSize: 15,
             alignment: 'center',
             italics: true,
           },
           {
-            text: 'Fecha:',
-            absolutePosition: { y: 130 },
+            text: 'Fecha: ' + this.doc.date_cap.toDate().toLocaleDateString('es-MX'),
+            absolutePosition: { y: 140 },
             fontSize: 13,
             italics: true,
             alignment: 'right',
@@ -142,7 +141,7 @@
             italics: true,
           },
           {
-            text: '1asdasda',
+            text: socio,
             absolutePosition: { x: 50, y: 170 },
             fontSize: 13,
             italics: true,
@@ -154,7 +153,7 @@
             italics: true,
           },
           {
-            text: '1asdasda',
+            text: reason,
             absolutePosition: { x: 50, y: 280 },
             fontSize: 13,
             italics: true,
@@ -166,8 +165,7 @@
             italics: true,
           },
           {
-            text:
-              'loresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloresloreslores',
+            text: description,
             absolutePosition: { x: 50, y: 350 },
             fontSize: 13,
             italics: true,
@@ -179,14 +177,14 @@
             italics: true,
           },
           {
-            text: '1asdasda',
+            text: quantity,
             absolutePosition: { x: 150, y: 490 },
             fontSize: 13,
             italics: true,
           },
           {
-            text: this.user.data.displayName,
-            absolutePosition: { x: 260, y: 630 },
+            text: user,
+            absolutePosition: { x: 260, y: 585 },
             fontSize: 13,
             italics: true,
           },

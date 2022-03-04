@@ -23,8 +23,10 @@ import './plugins/vee-validate'
 import vuetify from './plugins/vuetify'
 import i18n from './i18n'
 import VueTextareaAutosize from 'vue-textarea-autosize'
+import VueYoutube from 'vue-youtube'
 Vue.config.productionTip = false
 
+Vue.use(VueYoutube)
 Vue.use(VueTextareaAutosize)
 
 // Firebase app

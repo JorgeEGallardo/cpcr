@@ -95,7 +95,6 @@
                   <v-btn
                     color="primary"
                     class="mr-0"
-                    :disabled="button"
                     @click="createSol"
                   >
                     Crear solicitud

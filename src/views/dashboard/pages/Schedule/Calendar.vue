@@ -341,7 +341,7 @@
             alert('Evento protegido por ' + event.user)
           }
         } catch (error) {
-          console.log(error)
+          // console.log(error)
         }
       },
       async deleteEvent (event) {
@@ -354,7 +354,7 @@
             alert('Evento protegido por ' + event.user)
           }
         } catch (error) {
-          console.log(error)
+          // console.log(error)
         }
       },
       async addEvent () {
@@ -372,9 +372,11 @@
             this.$refs.form.reset()
             this.color = 'primary'
             this.getEvents()
-          } else { console.log('Datos incompletos') }
+          } else {
+            alert('Hubo un error')
+          }
         } catch (error) {
-          console.log(error)
+          alert('Hubo un error')
         }
       },
       async getEvents () {
@@ -392,7 +394,7 @@
             })
           })
         } catch (error) {
-          console.log(error)
+          alert('Hubo un error')
         }
       },
       viewDay ({ date }) {

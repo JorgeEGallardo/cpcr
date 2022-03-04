@@ -14,22 +14,22 @@ const router = new Router({
       meta: {
         requiresAuth: true,
       },
-  },
-  {
-    path: '/inicio',
-    name: 'Sesion',
-    component: () => import('@/views/dashboard/pages/Login'),
-    meta: {
-      requiresAuth: true,
     },
-  },
-  {
-    path: '/out',
-    name: 'Out',
-    component: () => import('@/views/dashboard/component/Out'),
-  },
-  { path: '/404', component: () => import('@/views/dashboard/pages/404') },
-  { path: '*', redirect: '/404' },
+    {
+      path: '/inicio',
+      name: 'Sesion',
+      component: () => import('@/views/dashboard/pages/Login'),
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
+      path: '/out',
+      name: 'Out',
+      component: () => import('@/views/dashboard/component/Out'),
+    },
+    { path: '/404', component: () => import('@/views/dashboard/pages/404') },
+    { path: '*', redirect: '/404' },
     {
       path: '/',
       component: () => import('@/views/dashboard/Index'),
@@ -43,13 +43,13 @@ const router = new Router({
         },
         {
           name: 'Consulta de listas bloqueadas',
-          path: '/pages/bloqueadas',
+          path: '/ofc/bloqueadas',
           component: () => import('@/views/dashboard/pages/Blockeds/Request'),
           requiresAuth: true,
         },
         {
           name: 'Solicitud a sistemas',
-          path: '/SolicitudTI',
+          path: '/SolicitudSistemas',
           component: () => import('@/views/dashboard/pages/IT/Request'),
           requiresAuth: true,
         },
@@ -58,7 +58,8 @@ const router = new Router({
           path: '/SolicitudesIT',
           component: () => import('@/views/dashboard/pages/IT/Requests'),
           requiresAuth: true,
-        }, {
+        },
+        {
           name: 'Permisos',
           path: '/AdminPermisos',
           component: () => import('@/views/dashboard/pages/root/Index'),
@@ -75,7 +76,8 @@ const router = new Router({
           path: '/Calendario',
           component: () => import('@/views/dashboard/pages/Schedule/Index'),
           requiresAuth: true,
-        }, {
+        },
+        {
           name: 'Agenda',
           path: '/agenda',
           component: () => import('@/views/dashboard/pages/Schedule/IndexOwn'),
@@ -84,13 +86,15 @@ const router = new Router({
         {
           name: 'Solicitar la busqueda de un socio',
           path: '/solicitud',
-          component: () => import('@/views/dashboard/pages/AddBlocked/CapRequest'),
+          component: () =>
+            import('@/views/dashboard/pages/AddBlocked/CapRequest'),
           requiresAuth: true,
         },
         {
           name: 'Agregar una nueva persona bloqueada',
-          path: '/pages/personas',
-          component: () => import('@/views/dashboard/pages/AddBlocked/Personas'),
+          path: '/bloqueadas',
+          component: () =>
+            import('@/views/dashboard/pages/AddBlocked/Personas'),
           requiresAuth: true,
         },
         // Pages
@@ -132,6 +136,36 @@ const router = new Router({
           path: 'upgrade',
           component: () => import('@/views/dashboard/Upgrade'),
         },
+        {
+          name: 'Regulatorios',
+          path: '/MonthList',
+          component: () =>
+            import('@/views/dashboard/pages/MonthList/MonthTable'),
+        },
+        {
+          name: 'Reproductor de videos',
+          path: '/VideoPlayer',
+          component: () =>
+            import('@/views/dashboard/pages/Video/ListPlayer/BodyVideoPlayer'),
+        },
+        {
+          name: 'Añadir Video',
+          path: '/VideoImport',
+          component: () =>
+            import('@/views/dashboard/pages/Video/Import/Import.vue'),
+        },
+        {
+          name: 'Gestor de archivos',
+          path: '/fileRepository',
+          component: () =>
+            import('@/views/dashboard/pages/File/fileRepository/File.vue'),
+        },
+        {
+          name: 'añadir enlace',
+          path: '/fileImport',
+          component: () =>
+            import('@/views/dashboard/pages/File/fileImport/fileImport.vue'),
+        },
       ],
     },
   ],
@@ -139,21 +173,21 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!firebase.auth().currentUser) {
-      // Console.log('awa')
+      // //console.log('awa')
       next()
     } else {
       next()
     }
   } else if (to.matched.some(record => record.meta.requiresGuest)) {
     if (firebase.auth().currentUser) {
-      // Console.log('ewe')
+      // //console.log('ewe')
       next()
     } else {
-      // Console.log('ewe123')
+      // //console.log('ewe123')
       next()
     }
   } else {
-    // Console.log('ewe345')
+    // //console.log('ewe345')
     next()
   }
 })

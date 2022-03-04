@@ -60,10 +60,10 @@
               Fecha
             </th>
             <th class="primary--text">
-              Operario
+              Operariosss
             </th>
             <th class="primary--text text-right ">
-              Acciones
+              Accionessss
             </th>
           </tr>
         </thead>

@@ -229,7 +229,7 @@ Componente para traer las personas que coincidan con la busqueda y se encuentren
           .then(response => {
             const resp = response.data
             alert(resp)
-            // Console.log(response.data)
+            // //console.log(response.data)
           })
           .catch(function (error) {
             alert(error)
@@ -241,7 +241,7 @@ Componente para traer las personas que coincidan con la busqueda y se encuentren
           .get('http://192.168.0.99:8000/api/blocked/' + api)
           .then(response => {
             this.info = response.data
-            // Console.log(response.data)
+            // //console.log(response.data)
           })
           .catch(function (error) {
             alert(error)

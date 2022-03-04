@@ -52,6 +52,7 @@
           dark
           required
           @click:append="show1 = !show1"
+          @keypress.enter="submit"
         />
         <v-btn
           :color="btncolor[colorbtn]"

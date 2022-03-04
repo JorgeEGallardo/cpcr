@@ -163,17 +163,17 @@
       },
     },
     created () {
-      // Console.log(this.user.data.uid)
       db
         .collection('users')
         .doc(this.user.data.uid)
         .get().then((doc) => {
-          // Console.log(doc)
+          // //console.log(doc)
           if (doc.exists) {
-            this.items = doc.data().permissions
-          } else {
-            // doc.data() will be undefined in this case
-            // Console.log('No such document!')
+            doc.data().permissions.forEach(element => {
+              db.collection('permissions').doc(element).get().then((perm) => {
+                this.items.push(perm.data())
+              })
+            })
           }
         }).catch((error) => {
           alert('Error getting document:', error)

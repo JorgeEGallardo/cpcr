@@ -116,6 +116,7 @@
                       </v-icon>
                     </v-btn>
                     <pdf
+                      :request="item.id"
                       only
                     />
                   </td>

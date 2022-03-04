@@ -47,13 +47,13 @@
               ID
             </th>
             <th class="primary--text">
-              Nombre
+              Nombres
             </th>
             <th class="primary--text">
               Folio
             </th>
             <th class="primary--text">
-              RFC
+              RFCss
             </th>
             <th class="text-right primary--text">
               CURP
@@ -240,7 +240,7 @@
           .get('http://192.168.0.99:8000/api/blocked/' + api)
           .then(response => {
             this.info = response.data
-            // Console.log(response.data)
+            // //console.log(response.data)
           })
           .catch(function (error) {
             alert(error)
