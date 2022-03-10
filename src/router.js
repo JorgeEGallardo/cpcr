@@ -166,6 +166,12 @@ const router = new Router({
           component: () =>
             import('@/views/dashboard/pages/File/fileImport/fileImport.vue'),
         },
+        {
+          name: 'CHART-TEST',
+          path: '/TestChart',
+          component: () =>
+            import('@/views/dashboard/pages/Charts/bodyChart.vue'),
+        },
       ],
     },
   ],

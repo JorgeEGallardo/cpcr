@@ -59,7 +59,7 @@
       },
     },
     created () {
-      db.collection('fileList')
+      db.collection('fileList').orderBy('date_cap', 'desc')
         .get()
         .then(res => {
           res
