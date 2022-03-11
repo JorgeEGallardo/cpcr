@@ -15,21 +15,9 @@
           Vista grafíca
         </div>
       </template>
-      <cpcr-piechart
-        :chart-title="titulo"
-        :chart-data="pieDatos"
-        :chart-options="options"
-      />
-      <cpcr-barchart
-        :chart-title="titulo"
-        :chart-data="datos"
-        :chart-options="options"
-      />
-      <cpcr-linechart
-        :chart-title="titulo"
-        :chart-data="datos"
-        :chart-options="options"
-      />
+      <cpcr-piechart />
+      <cpcr-barchart />
+      <cpcr-linechart />
     </base-material-card>
   </v-container>
 </template>

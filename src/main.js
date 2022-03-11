@@ -22,26 +22,28 @@ import './plugins/chartist'
 import './plugins/vee-validate'
 import vuetify from './plugins/vuetify'
 import i18n from './i18n'
+import Chartkick from 'vue-chartkick'
+import Chart from 'chart.js'
 import VueTextareaAutosize from 'vue-textarea-autosize'
 import VueYoutube from 'vue-youtube'
 Vue.config.productionTip = false
-
 Vue.use(VueYoutube)
 Vue.use(VueTextareaAutosize)
+Vue.use(Chartkick.use(Chart))
 
 // Firebase app
 const firebaseConfig = {
   apiKey: 'AIzaSyAVmodydqJQvNsKvzeH_jutNXe-XNZtIoQ',
-    authDomain: 'cpcrapi.firebaseapp.com',
-    projectId: 'cpcrapi',
-    storageBucket: 'cpcrapi.appspot.com',
-    messagingSenderId: '334384136541',
-    appId: '1:334384136541:web:e6cd489038845b7d5628b4',
-    measurementId: 'G-SBV9SHFMNP',
+  authDomain: 'cpcrapi.firebaseapp.com',
+  projectId: 'cpcrapi',
+  storageBucket: 'cpcrapi.appspot.com',
+  messagingSenderId: '334384136541',
+  appId: '1:334384136541:web:e6cd489038845b7d5628b4',
+  measurementId: 'G-SBV9SHFMNP',
 }
 firebase.initializeApp(firebaseConfig)
 export const db = firebase.firestore()
-firebase.auth().onAuthStateChanged((user) => {
+firebase.auth().onAuthStateChanged(user => {
   store.dispatch('fetchUser', user)
 })
 export const auth = firebase.auth()

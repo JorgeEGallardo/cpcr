@@ -23,7 +23,7 @@
               Calendario para planear tareas del corporativo
             </div>
           </template>
-          <calendar></calendar>
+          <calendar />
         </base-material-card>
       </v-col>
     </v-row>
