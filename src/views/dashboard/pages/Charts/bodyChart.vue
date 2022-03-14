@@ -15,7 +15,7 @@
           Vista grafíca
         </div>
       </template>
-      <cpcr-piechart />
+      <cpcr-piechart :data-line="datosLinea" />
       <cpcr-barchart />
       <cpcr-linechart />
     </base-material-card>
@@ -31,16 +31,32 @@
     components: { CpcrPiechart, CpcrBarchart, CpcrLinechart },
     data () {
       return {
-        titulo: 'pie',
-        datos: {
-          labels: ['A', 'B', 'C'],
-          series: [25, 25, 50],
-        },
-        options: {
-          chartpadding: 30,
-          labelOffset: 50,
-          labelDirectuion: 'explode',
-        },
+        datosLinea: [
+          {
+            name: 'Workout',
+            data: {
+              20170101: 3,
+              '2017-01-02': 3,
+              '2017-01-03': 1,
+              '2017-01-04': 4,
+              '2017-01-05': 3,
+              '2017-01-06': 2,
+              '2017-01-07': 3,
+            },
+          },
+          {
+            name: 'Call parents',
+            data: {
+              '2017-01-01': 5,
+              '2017-01-02': 3,
+              '2017-01-03': 2,
+              '2017-01-04': 0,
+              '2017-01-05': 0,
+              '2017-01-06': 1,
+              '2017-01-07': 1,
+            },
+          },
+        ],
       }
     },
     computed: {

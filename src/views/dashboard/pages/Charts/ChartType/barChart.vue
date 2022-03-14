@@ -8,7 +8,9 @@
         barras
       </v-card-title>
       <div class="my-6">
-        <column-chart :data="data" />
+        <column-chart
+          :data="data"
+        />
       </div>
     </v-card>
   </v-container>
