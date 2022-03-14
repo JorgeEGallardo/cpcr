@@ -74,9 +74,6 @@
       // },
       }
     },
-    created () {
-      alert(this.dataLine)
-    },
   }
 </script>
 

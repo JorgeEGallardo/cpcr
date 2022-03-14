@@ -15,14 +15,15 @@
           Vista grafíca
         </div>
       </template>
-      <cpcr-piechart :data-line="datosLinea" />
+      <cpcr-piechart />
       <cpcr-barchart />
-      <cpcr-linechart />
+      <cpcr-linechart :data-line="realDatosLinea" />
     </base-material-card>
   </v-container>
 </template>
 
 <script>
+  import { db } from '@/main'
   import CpcrPiechart from './ChartType/pieChart.vue'
   import CpcrBarchart from './ChartType/barChart.vue'
   import CpcrLinechart from './ChartType/lineChart.vue'
@@ -31,36 +32,23 @@
     components: { CpcrPiechart, CpcrBarchart, CpcrLinechart },
     data () {
       return {
-        datosLinea: [
-          {
-            name: 'Workout',
-            data: {
-              20170101: 3,
-              '2017-01-02': 3,
-              '2017-01-03': 1,
-              '2017-01-04': 4,
-              '2017-01-05': 3,
-              '2017-01-06': 2,
-              '2017-01-07': 3,
-            },
-          },
-          {
-            name: 'Call parents',
-            data: {
-              '2017-01-01': 5,
-              '2017-01-02': 3,
-              '2017-01-03': 2,
-              '2017-01-04': 0,
-              '2017-01-05': 0,
-              '2017-01-06': 1,
-              '2017-01-07': 1,
-            },
-          },
+        realDatosLinea: [
+          { name: 'Si', data: this.datosLinea[0].value },
         ],
+        datosLinea: [],
       }
     },
     computed: {
       ...mapState(['barColor', 'barImage', 'user']),
+    },
+    created () {
+      db.collection('charts')
+        .where('cat', '==', 'Bar')
+        .get()
+        .then(doc => {
+          this.datosLinea.push(doc.data())
+          alert(this.datosLinea[0].title)
+        })
     },
   }
 </script>

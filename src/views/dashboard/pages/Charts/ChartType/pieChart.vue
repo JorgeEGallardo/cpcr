@@ -2,7 +2,7 @@
   <v-container>
     <v-card class="color center">
       <v-card-title class="text primary center color">
-        Pie
+        Dona
       </v-card-title>
       <div>
         <pie-chart
