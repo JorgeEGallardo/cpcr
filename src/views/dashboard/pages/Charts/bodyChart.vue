@@ -32,9 +32,7 @@
     components: { CpcrPiechart, CpcrBarchart, CpcrLinechart },
     data () {
       return {
-        realDatosLinea: [
-          { name: 'Si', data: this.datosLinea[0].value },
-        ],
+        realDatosLinea: [{ name: 'Si', data: this.realDatosLinea[0].value }],
         datosLinea: [],
       }
     },
@@ -47,7 +45,8 @@
         .get()
         .then(doc => {
           this.datosLinea.push(doc.data())
-          alert(this.datosLinea[0].title)
+          alert(this.datosLinea)
+        // Lunes: 1, Martes: 3, Miercoles: 2
         })
     },
   }
