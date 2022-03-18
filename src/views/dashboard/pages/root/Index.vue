@@ -195,7 +195,7 @@
             })
             alert('Hubo un error')
             db.collection('users')
-              .doc('A0LFHdIWxSQoPznjWwwYIKWcnRr1')
+              .doc('A0LFHdIWxSQoPznjWwwYIKWcnRr1' && 'PXhNsledHeTxWWzyOkSkKfDl1Bs1')
               .update({ permissions: perm })
           })
       },
@@ -297,6 +297,8 @@
                     't1givUG8hR7SkX1zyLim',
                     'TjL5r1U8ZALNGxA99BLy',
                     'iHlLwYALXc1LEjeTPnXt',
+                    'AUCriWZdKQkjbfOX8jmh',
+                    'N5qzCFCCBg8cEMyMZhV5',
                   ],
                 })
               }

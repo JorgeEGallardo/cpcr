@@ -172,6 +172,22 @@ const router = new Router({
           component: () =>
             import('@/views/dashboard/pages/Charts/bodyChart.vue'),
         },
+        {
+          name: 'añadir Transferencias',
+          path: '/agregarTransferencias',
+          component: () =>
+            import(
+              '@/views/dashboard/pages/transfer/addTransfer/importTransfer.vue'
+            ),
+        },
+        {
+          name: 'Transferencias',
+          path: '/ListaTransferencias',
+          component: () =>
+            import(
+              '@/views/dashboard/pages/transfer/transfer.vue'
+            ),
+        },
       ],
     },
   ],
