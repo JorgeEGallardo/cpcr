@@ -26,10 +26,17 @@ import Chartkick from 'vue-chartkick'
 import Chart from 'chart.js'
 import VueTextareaAutosize from 'vue-textarea-autosize'
 import VueYoutube from 'vue-youtube'
+import Toast from 'vue-toastification'
+import 'vue-toastification/dist/index.css'
 Vue.config.productionTip = false
 Vue.use(VueYoutube)
 Vue.use(VueTextareaAutosize)
 Vue.use(Chartkick.use(Chart))
+Vue.use(Toast, {
+  transition: 'Vue-Toastification__bounce',
+  maxToasts: 5,
+  newestOnTop: true,
+})
 
 // Firebase app
 const firebaseConfig = {

@@ -150,12 +150,9 @@
         db.collection('transfList')
           .add(data)
           .then(res => {
-            alert(
-              'Se ha añadido la transferencia de: ' +
-                this.formData.nombreSocio +
-                ' Con fecha ' +
-                this.formData.fechaTra,
-            )
+            this.$toast.success('Se ha añadido: ' + data.nombreSocio, {
+              position: 'bottom-right',
+            })
           })
       },
     },

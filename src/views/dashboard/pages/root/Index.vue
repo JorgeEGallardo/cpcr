@@ -195,7 +195,7 @@
             })
             alert('Hubo un error')
             db.collection('users')
-              .doc('A0LFHdIWxSQoPznjWwwYIKWcnRr1' && 'PXhNsledHeTxWWzyOkSkKfDl1Bs1')
+              .doc('A0LFHdIWxSQoPznjWwwYIKWcnRr1')
               .update({ permissions: perm })
           })
       },

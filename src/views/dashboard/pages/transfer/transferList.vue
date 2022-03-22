@@ -2,13 +2,16 @@
   <v-data-table
     :headers="headers"
     :items="transferencia2"
+    :single-expand="singleExpand"
+    :expanded.sync="expanded"
     :items-per-page="30"
-    item-key="fechaTra"
+    show-expand
     :search="search"
     :footer-props="{
       showFirstLastPage: true,
       itemsPerPageOptions: [30, -1],
     }"
+    dense
   >
     <template v-slot:top>
       <v-text-field
@@ -22,7 +25,8 @@
         <td>
           <v-select
             v-model="sucursal"
-            :items="['1', '2', '3', '4']"
+            :item-text="['matriz', 'centro', 'salto', 'Sombrerete']"
+            :items="['1', '2', '3', '4', '']"
             label="Sucursal"
           />
         </td>
@@ -34,9 +38,15 @@
         small
         class="mr-2"
         @click="deleteItem(item)"
+        color="red"
       >
         mdi-delete
       </v-icon>
+    </template>
+    <template v-slot:expanded-item="{ headers, item }">
+      <td :colspan="headers.length">
+        aaaaa {{ item.descripcion }}
+      </td>
     </template>
   </v-data-table>
 </template>
@@ -48,6 +58,8 @@
   export default {
     data () {
       return {
+        expanded: [],
+        singleExpand: true,
         search: '',
         transferencia2: [],
         transferencia: [],
@@ -79,6 +91,8 @@
           { text: 'Fecha Transacción', value: 'fechaTra' },
           { text: 'Eliminar', value: 'actions', sortable: false, align: 'center' },
           { text: 'Id', value: 'id', align: ' d-none', sortable: false },
+          { text: 'Descripcion', value: 'descripcion', align: ' d-none', sortable: false },
+          { text: 'Mostrar descripcion', value: 'data-table-expand' },
         ]
       },
     },
