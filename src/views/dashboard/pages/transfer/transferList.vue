@@ -25,8 +25,7 @@
         <td>
           <v-select
             v-model="sucursal"
-            :item-text="['matriz', 'centro', 'salto', 'Sombrerete']"
-            :items="['1', '2', '3', '4', '']"
+            :items="['Matriz', 'Centro', 'Salto', 'Sombrerete', '']"
             label="Sucursal"
           />
         </td>

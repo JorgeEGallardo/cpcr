@@ -52,7 +52,7 @@
           >
             <v-select
               v-model="formData.sucursal"
-              :items="['1', '2', '3', '4']"
+              :items="['Matriz', 'Centro', 'Salto', 'Sombrerete']"
               label="Sucursal"
             />
           </v-col>

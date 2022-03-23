@@ -1,7 +1,7 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="transferencia2"
+    :items="remesas"
     :single-expand="singleExpand"
     :expanded.sync="expanded"
     :items-per-page="30"
@@ -60,8 +60,7 @@
         expanded: [],
         singleExpand: true,
         search: '',
-        transferencia2: [],
-        transferencia: [],
+        remesas: [],
         sucursal: '',
       }
     },
@@ -98,11 +97,11 @@
       },
     },
     created () {
-      db.collection('remittanceList')
+      db.collection('remittanceList').orderBy('fechaMov', 'desc')
         .get()
         .then(res => {
           res.forEach(doc => {
-            this.transferencia2.push({ id: doc.id, ...doc.data() })
+            this.remesas.push({ id: doc.id, ...doc.data() })
           })
         })
     },
@@ -110,11 +109,11 @@
       async refTable () {
         try {
           await db
-            .collection('transfList')
+            .collection('remittanceList')
             .get()
             .then(res => {
               res.forEach(doc => {
-                this.transferencia2.push({ id: doc.id, ...doc.data() })
+                this.remesas.push({ id: doc.id, ...doc.data() })
               })
             })
         } catch (error) {
@@ -124,10 +123,10 @@
       async deleteItem (item) {
         try {
           await db
-            .collection('transfList')
+            .collection('remittanceList')
             .doc(item.id)
             .delete()
-          this.transferencia2 = []
+          this.remesas = []
           this.refTable()
         } catch (error) {
           alert('Hubo un error')
