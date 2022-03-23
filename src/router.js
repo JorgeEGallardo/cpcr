@@ -184,9 +184,19 @@ const router = new Router({
           name: 'Transferencias',
           path: '/ListaTransferencias',
           component: () =>
-            import(
-              '@/views/dashboard/pages/transfer/transfer.vue'
-            ),
+            import('@/views/dashboard/pages/transfer/transfer.vue'),
+        },
+        {
+          name: 'Remesas',
+          path: '/ListaRemesas',
+          component: () =>
+            import('@/views/dashboard/pages/remittance/remittance.vue'),
+        },
+        {
+          name: 'Nueva remesa',
+          path: '/AgregarRemesa',
+          component: () =>
+            import('@/views/dashboard/pages/remittance/newRemittance/newRemittance.vue'),
         },
       ],
     },
