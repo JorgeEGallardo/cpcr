@@ -181,7 +181,7 @@
       search2 () {
         const api = this.search.toUpperCase()
         axios
-          .get('http://192.168.0.99:8000/api/blocked/' + api)
+          .get('http://10.35.1.106:8000/api/blocked/' + api)
           .then(response => {
             this.info = response.data
           })
@@ -192,7 +192,7 @@
       pdfPrint () {
         const api = this.search.toUpperCase()
         axios
-          .get('http://192.168.0.99:800/api/blocked/' + api)
+          .get('http://10.35.1.106:8000/api/blocked/' + api)
           .then(response => {
             this.info = response.data
           })

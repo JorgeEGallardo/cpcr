@@ -17,13 +17,12 @@
       </template>
       <cpcr-piechart />
       <cpcr-barchart />
-      <cpcr-linechart :data-line="realDatosLinea" />
+      <cpcr-linechart />
     </base-material-card>
   </v-container>
 </template>
 
 <script>
-  import { db } from '@/main'
   import CpcrPiechart from './ChartType/pieChart.vue'
   import CpcrBarchart from './ChartType/barChart.vue'
   import CpcrLinechart from './ChartType/lineChart.vue'
@@ -31,23 +30,10 @@
   export default {
     components: { CpcrPiechart, CpcrBarchart, CpcrLinechart },
     data () {
-      return {
-        realDatosLinea: [{ name: 'Si', data: this.realDatosLinea[0].value }],
-        datosLinea: [],
-      }
+      return {}
     },
     computed: {
       ...mapState(['barColor', 'barImage', 'user']),
-    },
-    created () {
-      db.collection('charts')
-        .where('cat', '==', 'Bar')
-        .get()
-        .then(doc => {
-          this.datosLinea.push(doc.data())
-          alert(this.datosLinea)
-        // Lunes: 1, Martes: 3, Miercoles: 2
-        })
     },
   }
 </script>

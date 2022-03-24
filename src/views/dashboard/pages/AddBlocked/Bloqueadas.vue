@@ -225,7 +225,7 @@ Componente para traer las personas que coincidan con la busqueda y se encuentren
         this.dialog = true
         const api = id
         axios
-          .get('http://192.168.0.99:8000/api/blocked/one/' + api)
+          .get('http://10.35.1.106:8000/api/blocked/one/' + api)
           .then(response => {
             const resp = response.data
             alert(resp)
@@ -238,7 +238,7 @@ Componente para traer las personas que coincidan con la busqueda y se encuentren
       search2 () {
         const api = this.search.toUpperCase()
         axios
-          .get('http://192.168.0.99:8000/api/blocked/' + api)
+          .get('http://10.35.1.106:8000/api/blocked/' + api)
           .then(response => {
             this.info = response.data
             // //console.log(response.data)

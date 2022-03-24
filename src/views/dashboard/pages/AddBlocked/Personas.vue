@@ -189,7 +189,7 @@
     methods: {
       createPost () {
         // //console.log(this.formData)
-        axios.post('http://192.168.0.99:8000/api/blocked', this.formData)
+        axios.post('http://10.35.1.106:8000/api/blocked', this.formData)
           .then((response) => {
             // //console.log(response)
             alert(this.formData.nombre + ' registrado con éxito.')

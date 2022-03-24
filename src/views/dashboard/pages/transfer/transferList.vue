@@ -36,8 +36,8 @@
       <v-icon
         small
         class="mr-2"
-        @click="deleteItem(item)"
         color="red"
+        @click="deleteItem(item)"
       >
         mdi-delete
       </v-icon>

@@ -9,7 +9,7 @@
       </v-card-title>
       <div class="my-6">
         <line-chart
-          :data="dataLine"
+          :data="[[datosLinea[0].title, datosLinea[0].value]]"
           download="GraficoLineas"
         />
       </div>
@@ -17,15 +17,12 @@
   </v-container>
 </template>
 <script>
+  import { db } from '@/main'
+
   export default {
-    props: {
-      dataLine: {
-        type: String,
-        default: 'DEFAULT',
-      },
-    },
     data () {
       return {
+        datosLinea: [],
       // data: [
       //   {
       //     name: 'Workout',
@@ -73,6 +70,19 @@
       //   },
       // },
       }
+    },
+    created () {
+      db.collection('charts')
+        .where('cat', '==', 'Bar')
+        .get()
+        .then(snap => {
+          snap.forEach(doc => {
+            this.datosLinea.push(doc.data())
+          // console.table(this.datosLinea)
+          // console.log(this.datosLinea[0].title)
+          // console.log(this.datosLinea[0].value)
+          })
+        })
     },
   }
 </script>
