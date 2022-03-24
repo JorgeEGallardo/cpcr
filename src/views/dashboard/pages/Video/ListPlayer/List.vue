@@ -41,7 +41,7 @@
         await db
           .collection('videos')
           .doc(this.user.data.uid)
-          .update({ videoId: this.videoid })
+          .set({ videoId: this.videoid })
           .then(res => {})
           .catch(error => {
             alert('No se pudo actualizar el registro' + error)

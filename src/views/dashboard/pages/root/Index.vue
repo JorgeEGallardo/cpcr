@@ -9,13 +9,9 @@
         cols="12"
         md="12"
       >
-        <base-material-card
-          color="primary"
-        >
+        <base-material-card color="primary">
           <template v-slot:heading>
-            <div
-              class="text-h3 font-weight-light"
-            >
+            <div class="text-h3 font-weight-light">
               Sistemas
             </div>
 
@@ -128,7 +124,10 @@
                     v-for="item in perm"
                     :key="item"
                   >
-                    <td>{{ item.id }}</td><td>{{ item.title }}</td><td>{{ item.to }}</td><td>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.title }}</td>
+                    <td>{{ item.to }}</td>
+                    <td>
                       <v-checkbox
                         v-model="item.inArray"
                         :label="item.inArray"
@@ -155,11 +154,9 @@
   import { db } from '@/main'
   export default {
     name: 'App',
-    components: {
-    },
+    components: {},
     data: () => ({
-      links: {
-      },
+      links: {},
       userPerm: '',
       allUsers: [],
       perm: [],
@@ -189,77 +186,126 @@
         this.addAllPerm()
       },
       addAllPerm: async function () {
-        db
-          .collection('permissions')
-          .get().then((snapshot) => {
+        db.collection('permissions')
+          .get()
+          .then(snapshot => {
             const perm = []
-            snapshot.forEach((doc) => {
+            snapshot.forEach(doc => {
               perm.push(doc.id)
             })
             alert('Hubo un error')
-            db
-              .collection('users')
+            db.collection('users')
               .doc('A0LFHdIWxSQoPznjWwwYIKWcnRr1')
               .update({ permissions: perm })
           })
       },
       updatePerm: async function () {
-        await db.collection('users').where('email', '==', this.userPerm).get().then((snapshot) => {
-          snapshot.forEach(async (doc) => {
-            try {
-              const permToUpdate = []
-              this.perm.forEach((elem) => {
-                if (elem.inArray === 'true') {
-                  if (elem.prio === 1) {
-                    permToUpdate.unshift(elem.id)
-                  } else {
-                    permToUpdate.push(elem.id)
+        await db
+          .collection('users')
+          .where('email', '==', this.userPerm)
+          .get()
+          .then(snapshot => {
+            snapshot.forEach(async doc => {
+              try {
+                const permToUpdate = []
+                this.perm.forEach(elem => {
+                  if (elem.inArray === 'true') {
+                    if (elem.prio === 1) {
+                      permToUpdate.unshift(elem.id)
+                    } else {
+                      permToUpdate.push(elem.id)
+                    }
                   }
-                }
-              })
-              db.collection('users').doc(doc.id).update({ permissions: permToUpdate })
-            } catch (error) {
-              alert(error)
-            } finally {
-              alert('Registro actualizado con exito')
-            }
-          })
-        })
-      },
-      getUser: async function () {
-        await db.collection('users').where('email', '==', this.userPerm).get().then((snapshot) => {
-          snapshot.forEach(async (doc) => {
-            this.permArray = doc.data().permissions
-            this.perm = []
-            await db.collection('permissions').get().then((snapshot) => {
-              snapshot.forEach((element) => {
-                if (this.permArray.includes(element.id)) {
-                  this.perm.push({ ...element.data(), inArray: true, id: element.id })
-                } else {
-                  this.perm.push({ ...element.data(), inArray: false, id: element.id })
-                }
-              })
+                })
+                db.collection('users')
+                  .doc(doc.id)
+                  .update({ permissions: permToUpdate })
+              } catch (error) {
+                alert(error)
+              } finally {
+                alert('Registro actualizado con exito')
+              }
             })
           })
-        })
+      },
+      getUser: async function () {
+        await db
+          .collection('users')
+          .where('email', '==', this.userPerm)
+          .get()
+          .then(snapshot => {
+            snapshot.forEach(async doc => {
+              this.permArray = doc.data().permissions
+              this.perm = []
+              await db
+                .collection('permissions')
+                .get()
+                .then(snapshot => {
+                  snapshot.forEach(element => {
+                    if (this.permArray.includes(element.id)) {
+                      this.perm.push({
+                        ...element.data(),
+                        inArray: true,
+                        id: element.id,
+                      })
+                    } else {
+                      this.perm.push({
+                        ...element.data(),
+                        inArray: false,
+                        id: element.id,
+                      })
+                    }
+                  })
+                })
+            })
+          })
       },
       getUsers: async function () {
-        db
-          .collection('users')
-          .get().then((snapshot) => {
-            snapshot.forEach((doc) => {
+        db.collection('users')
+          .get()
+          .then(snapshot => {
+            snapshot.forEach(doc => {
               this.allUsers.push(doc.data().email)
             })
           })
       },
       restartPerm: async function () {
-        await db.collection('users').get().then(function (querySnapshot) {
-          querySnapshot.forEach(function (doc) {
-            doc.ref.update({
-              permissions: ['RU2tX44HGpClAr9btgdX', '34SzhwzcB9jMudbZMadF', 'UHBm2SuTR71t5SvII6RS', 'bQ4NyLYwjeT0QSa1lfDM'],
+        await db
+          .collection('users')
+          .get()
+          .then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+              const unaffected = [
+                'A0LFHdIWxSQoPznjWwwYIKWcnRr1',
+                'L0yV9YXWmeb5LlotHX8xW0Qt8uv1',
+                'PXhNsledHeTxWWzyOkSkKfDl1Bs1',
+                'yi2ArMWGjBRjkSfcXnJlW0hfWQm2',
+              ]
+              let isUnaffected = false
+              for (let i = 0; i < unaffected.length; i++) {
+                if (doc.data().uid === unaffected[i]) {
+                  isUnaffected = true
+                }
+              }
+              if (!isUnaffected) {
+                doc.ref.update({
+                  permissions: [
+                    'RU2tX44HGpClAr9btgdX',
+                    '34SzhwzcB9jMudbZMadF',
+                    'UHBm2SuTR71t5SvII6RS',
+                    'bQ4NyLYwjeT0QSa1lfDM',
+                    't1givUG8hR7SkX1zyLim',
+                    'TjL5r1U8ZALNGxA99BLy',
+                    'iHlLwYALXc1LEjeTPnXt',
+                    'AUCriWZdKQkjbfOX8jmh',
+                    'N5qzCFCCBg8cEMyMZhV5',
+                    '7oa0jdlI3LL6ExwhorQF',
+                    'xAb5uy0u9f14z0CyQfHc',
+                  ],
+                })
+              }
             })
           })
-        })
       },
     },
   }

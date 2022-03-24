@@ -97,7 +97,7 @@
           api = this.find
         }
         var info = ''
-        var route = this.masive ? 'http://192.168.0.99:8000/api/masive/' : 'http://192.168.0.99:8000/api/blocked/' + api
+        var route = this.masive ? 'http://10.35.1.106:8000/api/masive/' : 'http://10.35.1.106:8000/api/blocked/' + api
         var cont = []
         if (this.masive) {
           cont = await this.masivePrint(route, info, cont)

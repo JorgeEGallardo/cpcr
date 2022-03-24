@@ -166,6 +166,38 @@ const router = new Router({
           component: () =>
             import('@/views/dashboard/pages/File/fileImport/fileImport.vue'),
         },
+        {
+          name: 'CHART-TEST',
+          path: '/TestChart',
+          component: () =>
+            import('@/views/dashboard/pages/Charts/bodyChart.vue'),
+        },
+        {
+          name: 'añadir Transferencias',
+          path: '/agregarTransferencias',
+          component: () =>
+            import(
+              '@/views/dashboard/pages/transfer/addTransfer/importTransfer.vue'
+            ),
+        },
+        {
+          name: 'Transferencias',
+          path: '/ListaTransferencias',
+          component: () =>
+            import('@/views/dashboard/pages/transfer/transfer.vue'),
+        },
+        {
+          name: 'Remesas',
+          path: '/ListaRemesas',
+          component: () =>
+            import('@/views/dashboard/pages/remittance/remittance.vue'),
+        },
+        {
+          name: 'Nueva remesa',
+          path: '/AgregarRemesa',
+          component: () =>
+            import('@/views/dashboard/pages/remittance/newRemittance/newRemittance.vue'),
+        },
       ],
     },
   ],

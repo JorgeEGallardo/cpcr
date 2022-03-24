@@ -16,7 +16,7 @@
     <v-divider />
     <v-card-text
       class="subtexto"
-      coloe="black"
+      color="black"
     >
       {{ fileUrl }}
     </v-card-text>

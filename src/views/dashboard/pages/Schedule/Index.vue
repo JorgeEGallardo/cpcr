@@ -9,13 +9,9 @@
         cols="12"
         md="12"
       >
-        <base-material-card
-          color="primary"
-        >
+        <base-material-card color="primary">
           <template v-slot:heading>
-            <div
-              class="text-h3 font-weight-light"
-            >
+            <div class="text-h3 font-weight-light">
               Calendario corporativo
             </div>
 
@@ -23,7 +19,7 @@
               Calendario para planear tareas del corporativo
             </div>
           </template>
-          <calendar></calendar>
+          <calendar />
         </base-material-card>
       </v-col>
     </v-row>
@@ -39,7 +35,7 @@
       calendar,
     },
     data: () => ({
-      //
+    //
     }),
   }
 </script>

@@ -73,6 +73,7 @@
 <script>
   import { mapState } from 'vuex'
   import { db } from '../../../../../main'
+  import firebase from 'firebase'
 
   export default {
     data () {
@@ -90,6 +91,7 @@
           titulo: '',
           url: '',
           nivel: '',
+          date_cap: firebase.firestore.Timestamp.fromDate(new Date()),
         },
       }
     },
@@ -106,7 +108,8 @@
               'se ha añadido: ' +
                 this.formData.titulo +
                 this.formData.url +
-                this.formData.nivel,
+                this.formData.nivel +
+                this.date_cap,
             )
           })
           .catch(error => {
