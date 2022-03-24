@@ -8,8 +8,8 @@
         Lineas
       </v-card-title>
       <div class="my-6">
-        <line-chart
-          :data="[[datosLinea[0].title, datosLinea[0].value]]"
+        <column-chart
+          :data="datos"
           download="GraficoLineas"
         />
       </div>
@@ -23,6 +23,11 @@
     data () {
       return {
         datosLinea: [],
+        // ? prueba a intentar llenar el objeto con un ciclo usando datosLinea[i].value y datosLinea[i].nombre
+        //* no entiendo como usar la informacion que traigo de la base de datos
+        datos: [
+          { name: 'Usage', data: /* this.datosLinea[0].value */ { Tula: 1 } },
+        ],
       // data: [
       //   {
       //     name: 'Workout',
@@ -78,13 +83,25 @@
         .then(snap => {
           snap.forEach(doc => {
             this.datosLinea.push(doc.data())
-          // console.table(this.datosLinea)
-          // console.log(this.datosLinea[0].title)
-          // console.log(this.datosLinea[0].value)
+            console.table(this.datosLinea)
+            console.table(this.datosLinea[0].text)
+            console.table(this.datosLinea[0].value)
           })
         })
     },
   }
+// vue.runtime.esm.js?2b0e:619 [Vue warn]: Error in data(): "TypeError: Cannot read properties of undefined (reading '0')"
+// Vue warn]: Property or method "datos" is not defined on the instance but referenced during render. Make sure that this property is reactive, either in the data option, or for class-based components, by initializing the property. See: https://vuejs.org/v2/guide/reactivity.html#Declaring-Reactive-Properties.
+// lineChart.vue?b502:81 Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'push')
+// CombinedVueInstance<Vue, {
+//     datosLinea: any[];
+//     datos: {
+//         name: string;
+//         data: {
+//             Tula: number;
+//         };
+//     }[];
+// }, unknown, unknown, Readonly<Record<never, any>>>
 </script>
 
 <style scoped>
