@@ -44,7 +44,7 @@
     </template>
     <template v-slot:expanded-item="{ headers, item }">
       <td :colspan="headers.length">
-        aaaaa {{ item.descripcion }}
+        {{ item.descripcion }}
       </td>
     </template>
   </v-data-table>
@@ -86,8 +86,11 @@
           },
           { text: 'Nombre', value: 'nombreSocio', sortable: false },
           { text: 'Cantidad', value: 'cantidad', sortable: false },
+          { text: 'No Cta. Transfrencia', value: 'NoCuentaTransferencia', sortable: false },
+          { text: 'Efectivo', value: 'efectivo', sortable: false },
           { text: 'Producto', value: 'producto', sortable: false },
           { text: 'Fecha Transacción', value: 'fechaTra' },
+          { text: 'Movimiento en caja', value: 'fechaMov' },
           { text: 'Eliminar', value: 'actions', sortable: false, align: 'center' },
           { text: 'Id', value: 'id', align: ' d-none', sortable: false },
           { text: 'Descripcion', value: 'descripcion', align: ' d-none', sortable: false },

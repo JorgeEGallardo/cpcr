@@ -85,6 +85,7 @@
           },
           { text: 'Nombre', value: 'nombreSocio', sortable: false },
           { text: 'Cantidad', value: 'cantidad', sortable: false },
+          { text: 'No Cta. Transfrencia', value: 'NoCuentaTransferencia', sortable: false },
           { text: 'Efectivo', value: 'efectivo', sortable: false },
           { text: 'Producto', value: 'producto', sortable: false },
           { text: 'Fecha deposito', value: 'fechaRem' },

@@ -88,8 +88,6 @@
             .then(snap => {
               snap.forEach(doc => {
                 this.datos.push(doc.data())
-                console.table(this.datos)
-                //
               })
             })
         } catch (error) {

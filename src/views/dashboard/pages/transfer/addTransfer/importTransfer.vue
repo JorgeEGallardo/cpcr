@@ -29,12 +29,21 @@
           </v-col>
           <v-col
             cols="12"
-            md="6"
+            md="3"
           >
             <v-text-field
               v-model="formData.nombreSocio"
               label="Nombre del socio"
               hint="Nombre A.paterno A.materno"
+            />
+          </v-col>
+          <v-col
+            cols="12"
+            md="3"
+          >
+            <v-text-field
+              v-model="formData.NoCuentaTransferencia"
+              label="Numero de cuenta transferencia"
             />
           </v-col>
           <v-col
@@ -58,6 +67,16 @@
           </v-col>
           <v-col
             cols="12"
+            md="2"
+          >
+            <v-select
+              v-model="formData.efectivo"
+              :items="['Si', 'No']"
+              label="Transferencia en efectivo"
+            />
+          </v-col>
+          <v-col
+            cols="12"
             md="4"
           >
             <v-text-field
@@ -67,7 +86,7 @@
           </v-col>
           <v-col
             cols="12"
-            md="8"
+            md="3"
           >
             <v-menu
               v-model="menu22"
@@ -90,6 +109,34 @@
               <v-date-picker
                 v-model="formData.fechaTra"
                 @input="menu22 = false"
+              />
+            </v-menu>
+          </v-col>
+          <v-col
+            cols="12"
+            md="3"
+          >
+            <v-menu
+              v-model="menu"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              transition="scale-transition"
+              offset-y
+              min-width="auto"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  v-model="formData.fechaMov"
+                  label="Movimiento en caja"
+                  prepend-icon="mdi-calendar"
+                  readonly
+                  v-bind="attrs"
+                  v-on="on"
+                />
+              </template>
+              <v-date-picker
+                v-model="formData.fechaMov"
+                @input="menu = false"
               />
             </v-menu>
           </v-col>
@@ -130,14 +177,17 @@
         menu22: false,
         menu: false,
         formData: {
-          descripcion: '',
           numeroSocio: '',
           nombreSocio: '',
+          NoCuentaTransferencia: '',
           cantidad: '',
+          sucursal: '',
+          efectivo: '',
           producto: '',
           fechaTra: new Date(Date.now()).toISOString().substr(0, 10),
-          sucursal: '',
+          fechaMov: new Date(Date.now()).toISOString().substr(0, 10),
           fechaReal: firebase.firestore.Timestamp.fromDate(new Date()),
+          descripcion: '',
         },
       }
     },
