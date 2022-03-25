@@ -22,12 +22,11 @@
   export default {
     data () {
       return {
-        datosLinea: [],
+        datos: [],
         // ? prueba a intentar llenar el objeto con un ciclo usando datosLinea[i].value y datosLinea[i].nombre
         //* no entiendo como usar la informacion que traigo de la base de datos
-        datos: [
-          { name: 'Usage', data: /* this.datosLinea[0].value */ { Tula: 1 } },
-        ],
+        // datos: [{ name: 'Usage', data: { 20170101: 3 } }],
+        datos1: [],
       // data: [
       //   {
       //     name: 'Workout',
@@ -77,17 +76,26 @@
       }
     },
     created () {
-      db.collection('charts')
-        .where('cat', '==', 'Bar')
-        .get()
-        .then(snap => {
-          snap.forEach(doc => {
-            this.datosLinea.push(doc.data())
-            console.table(this.datosLinea)
-            console.table(this.datosLinea[0].text)
-            console.table(this.datosLinea[0].value)
-          })
-        })
+      this.refTable()
+    },
+    methods: {
+      async refTable () {
+        try {
+          await db
+          db.collection('charts')
+            .where('cat', '==', 'bar')
+            .get()
+            .then(snap => {
+              snap.forEach(doc => {
+                this.datos.push(doc.data())
+                console.table(this.datos)
+                //
+              })
+            })
+        } catch (error) {
+          alert('Hubó un error')
+        }
+      },
     },
   }
 // vue.runtime.esm.js?2b0e:619 [Vue warn]: Error in data(): "TypeError: Cannot read properties of undefined (reading '0')"
