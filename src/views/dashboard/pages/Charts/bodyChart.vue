@@ -4,7 +4,10 @@
     fluid
     tag="section"
   >
-    <base-material-card color="primary">
+    <base-material-card
+      v-if="loaded"
+      color="primary"
+    >
       <!-- Header -->
       <template v-slot:heading>
         <div class="text-h3 font-weight-light">
@@ -41,6 +44,7 @@
         arrayT: [],
         estima: [],
         carteraVencida: [],
+        loaded: false,
       }
     },
     computed: {
@@ -49,7 +53,10 @@
     created () {
       this.refTable(0, 'estimacion')
       this.refTable(1, 'carteraVencida')
+      this.loaded = true
+      console.table(this.arrayT)
     },
+    mounted () {},
     methods: {
       test () {
         console.table(this.arrayT)
@@ -65,8 +72,7 @@
               snap.forEach(doc => {
                 arrayData.push(doc.data())
               })
-              this.arrayT[arrayIndex] = arrayData
-              console.table(this.arrayT[arrayIndex])
+              this.$set(this.arrayT, arrayIndex, arrayData)
             })
         } catch (error) {
           alert('Hubó un error')

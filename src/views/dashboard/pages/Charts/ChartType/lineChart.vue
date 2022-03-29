@@ -4,13 +4,17 @@
       <v-card-title
         class="text primary center color"
         color="white"
-      />
+      >
+        {{ datos[0].name }}
+      </v-card-title>
       <div class="my-6">
         <area-chart
+          :data="datos"
           prefix="$"
           thousands=","
-          :data="datos"
-          min="3000000"
+          empty="No data"
+          loading="Cargando"
+          :min="minimo()"
         />
       </div>
     </v-card>
@@ -19,7 +23,22 @@
 <script>
   export default {
     props: {
-      datos: { type: Array, default: null },
+      datos: {
+        type: Array,
+        default: null,
+      },
+    },
+    data () {
+      return {}
+    },
+    methods: {
+      minimo () {
+        var temp = Object.values(this.datos[0].data).map(num => {
+          return Number(num)
+        })
+        var min = Math.min(...temp)
+        return Math.ceil(min - min * 0.005)
+      },
     },
   }
 </script>
