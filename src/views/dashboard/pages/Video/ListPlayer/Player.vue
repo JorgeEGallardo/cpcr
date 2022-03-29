@@ -12,10 +12,6 @@
         @playing="playing"
       />
     </div>
-    <!-- <a
-      href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-      target="_blank"
-    >🚫</a> -->
   </v-container>
 </template>
 
@@ -34,7 +30,7 @@
   export default {
     data () {
       return {
-        videoId: '', //! Cambiar
+        videoId: '',
         playerVars: {
           autoplay: 0,
         },

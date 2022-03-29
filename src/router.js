@@ -198,6 +198,12 @@ const router = new Router({
           component: () =>
             import('@/views/dashboard/pages/remittance/newRemittance/newRemittance.vue'),
         },
+        {
+          name: 'Nuevo grafico',
+          path: '/NuevoGrafico',
+          component: () =>
+            import('@/views/dashboard/pages/Charts/updateChart/updateChart.vue'),
+        },
       ],
     },
   ],
