@@ -7,40 +7,64 @@
     <base-material-card color="primary">
       <template v-slot:heading>
         <div class="text-h3 font-weight-light">
-          Remesas
+          Actualizar grafico
         </div>
 
         <div class="text-subtitle-1 font-weight-light">
-          Lista de las remesas
+          Pushear mas informacion
         </div>
       </template>
       <v-container>
         <v-row>
           <v-col>
-            <v-text-field
-              v-model="formData.fecha"
+            <!-- <v-text-field
+              v-model="fecha"
               label="Fecha"
-            />
+            /> -->
+
+            <v-menu
+              v-model="menu"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              transition="scale-transition"
+              offset-y
+              min-width="auto"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  v-model="fecha"
+                  label="Fecha"
+                  prepend-icon="mdi-calendar"
+                  readonly
+                  v-bind="attrs"
+                  v-on="on"
+                />
+              </template>
+              <v-date-picker
+                v-model="fecha"
+                @input="datepick = false"
+              />
+            </v-menu>
           </v-col>
           <v-col>
             <v-text-field
-              v-model="formData.cantidad"
+              v-model="cantidad"
               label="Cantidad"
             />
           </v-col>
           <v-col>
             <v-select
               v-model="categoria"
-              :items="['carteraVencida', 'estimacion']"
+              :items="['Vencida', 'Estimacion', 'scatterVencida']"
               label="Categoria"
             />
           </v-col>
         </v-row>
         <v-btn
           class="primary"
-          @click="updateChart"
+          @click="update(categoria)"
         >
-          Enviar
+          enviar
         </v-btn>
       </v-container>
     </base-material-card>
@@ -50,23 +74,62 @@
 <script>
   import { mapState } from 'vuex'
   import { db } from '@/main'
+
   export default {
     data () {
       return {
+        menu: false,
         categoria: '',
-        // data: { 'formData.fecha': 'formData.cantidad' },
-        formData: {
-          fecha: '',
-          cantidad: '',
-        },
+        fecha: new Date(Date.now()).toISOString().substr(0, 10),
+        cantidad: '',
+        temporal: [],
+        temporal2: [],
       }
     },
     computed: {
       ...mapState(['barColor', 'barImage', 'user']),
     },
     methods: {
-      updateChart () {
-        console.log(db)
+      cambio () {
+        alert(this.fecha)
+      },
+      async update () {
+        alert(
+          ' Categoria: ' +
+            this.categoria +
+            ' Fecha: ' +
+            this.fecha +
+            ' Cantidad: ' +
+            this.cantidad,
+        )
+        console.log(this.categoria)
+        await db
+          .collection('charts')
+          .doc(this.categoria)
+          .get()
+          .then(res => {
+            const dataToUpdate = res.data()
+            // temporal.push({ data: { [this.fecha]: this.cantidad } })
+            // {{ [this.fecha]: this.cantidad }}
+
+            // 0123456789
+            // 2022-04-04
+            const newDate =
+              this.categoria === 'scatterVencida'
+                ? this.fecha.substring(0, 4) +
+                  this.fecha.substring(5, 7) +
+                  this.fecha.substring(8, 10)
+                : this.fecha
+            alert(newDate)
+            const dataFinal = {
+              data: { ...dataToUpdate.data, [newDate]: this.cantidad },
+            }
+            this.temporal2 = dataFinal
+          })
+        await db
+          .collection('charts')
+          .doc(this.categoria)
+          .update(this.temporal2)
       },
     },
   }

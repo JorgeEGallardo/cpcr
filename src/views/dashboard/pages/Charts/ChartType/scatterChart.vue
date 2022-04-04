@@ -8,7 +8,7 @@
         {{ datos[0].name }}
       </v-card-title>
       <div class="my-6">
-        <area-chart
+        <scatter-chart
           :data="datos"
           prefix="$"
           thousands=","
@@ -16,9 +16,6 @@
           loading="Cargando"
           :min="minimo()"
         />
-        <v-btn @click="test">
-          test
-        </v-btn>
       </div>
     </v-card>
   </v-container>
@@ -41,9 +38,6 @@
         })
         var min = Math.min(...temp)
         return Math.ceil(min - min * 0.005)
-      },
-      test () {
-        console.log('a')
       },
     },
   }

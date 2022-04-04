@@ -22,9 +22,7 @@
       <cpcr-barchart />
       <cpcr-linechart :datos="arrayT[0]" />
       <cpcr-linechart :datos="arrayT[1]" />
-      <v-btn @click="test()">
-        test
-      </v-btn>
+      <cpcr-scatterchart :datos="arrayT[2]" />
     </base-material-card>
   </v-container>
 </template>
@@ -36,14 +34,13 @@
   import CpcrPiechart from './ChartType/pieChart.vue'
   import CpcrBarchart from './ChartType/barChart.vue'
   import CpcrLinechart from './ChartType/lineChart.vue'
+  import CpcrScatterchart from './ChartType/scatterChart.vue'
 
   export default {
-    components: { CpcrPiechart, CpcrBarchart, CpcrLinechart },
+    components: { CpcrPiechart, CpcrBarchart, CpcrLinechart, CpcrScatterchart },
     data () {
       return {
         arrayT: [],
-        estima: [],
-        carteraVencida: [],
         loaded: false,
       }
     },
@@ -53,14 +50,11 @@
     created () {
       this.refTable(0, 'estimacion')
       this.refTable(1, 'carteraVencida')
+      this.refTable(2, 'scatterVencida')
       this.loaded = true
       console.table(this.arrayT)
     },
-    mounted () {},
     methods: {
-      test () {
-        console.table(this.arrayT)
-      },
       async refTable (arrayIndex, categoria) {
         try {
           await db
