@@ -14,7 +14,6 @@
           thousands=","
           empty="No data"
           loading="Cargando"
-          :min="minimo()"
         />
       </div>
     </v-card>

@@ -8,13 +8,15 @@
         {{ datos[0].name }}
       </v-card-title>
       <div class="my-6">
-        <area-chart
+        <line-chart
           :data="datos"
           prefix="$"
           thousands=","
           empty="No data"
           loading="Cargando"
-          :min="minimo()"
+          :min="null"
+          :curve="false"
+          @change="test"
         />
         <v-btn @click="test">
           test
@@ -35,15 +37,15 @@
       return {}
     },
     methods: {
-      minimo () {
-        var temp = Object.values(this.datos[0].data).map(num => {
-          return Number(num)
-        })
-        var min = Math.min(...temp)
-        return Math.ceil(min - min * 0.005)
-      },
+      // minimo () {
+      //   var temp = Object.values(this.datos[0].data).map(num => {
+      //     return Number(num)
+      //   })
+      //   var min = Math.min(...temp)
+      //   return Math.ceil(min - min * 0.005)
+      // },
       test () {
-        console.log('a')
+        console.log(this.datos[0].data)
       },
     },
   }

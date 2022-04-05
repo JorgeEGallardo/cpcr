@@ -22,7 +22,7 @@
       <cpcr-barchart />
       <cpcr-linechart :datos="arrayT[0]" />
       <cpcr-linechart :datos="arrayT[1]" />
-      <cpcr-scatterchart :datos="arrayT[2]" />
+      <cpcr-linechart :datos="arrayT[2]" />
     </base-material-card>
   </v-container>
 </template>
@@ -34,10 +34,9 @@
   import CpcrPiechart from './ChartType/pieChart.vue'
   import CpcrBarchart from './ChartType/barChart.vue'
   import CpcrLinechart from './ChartType/lineChart.vue'
-  import CpcrScatterchart from './ChartType/scatterChart.vue'
 
   export default {
-    components: { CpcrPiechart, CpcrBarchart, CpcrLinechart, CpcrScatterchart },
+    components: { CpcrPiechart, CpcrBarchart, CpcrLinechart },
     data () {
       return {
         arrayT: [],
@@ -52,22 +51,33 @@
       this.refTable(1, 'carteraVencida')
       this.refTable(2, 'scatterVencida')
       this.loaded = true
-      console.table(this.arrayT)
     },
     methods: {
       async refTable (arrayIndex, categoria) {
         try {
           await db
-          db.collection('charts')
-            .where('cat', '==', categoria)
-            .get()
-            .then(snap => {
-              const arrayData = []
-              snap.forEach(doc => {
-                arrayData.push(doc.data())
+          if (categoria !== 'scatterVencida') {
+            db.collection('charts')
+              .where('cat', '==', categoria)
+              .get()
+              .then(snap => {
+                const arrayData = []
+                snap.forEach(doc => {
+                  arrayData.push(doc.data())
+                })
+                this.$set(this.arrayT, arrayIndex, arrayData)
               })
-              this.$set(this.arrayT, arrayIndex, arrayData)
-            })
+          } else {
+            db.collection('ChartSucursales')
+              .get()
+              .then(snap => {
+                const arrayData = []
+                snap.forEach(doc => {
+                  arrayData.push(doc.data())
+                })
+                this.$set(this.arrayT, arrayIndex, arrayData)
+              })
+          }
         } catch (error) {
           alert('Hubó un error')
         }
