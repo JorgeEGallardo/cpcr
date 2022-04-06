@@ -37,6 +37,9 @@ Vue.use(Toast, {
   maxToasts: 5,
   newestOnTop: true,
 })
+Chartkick.options = {
+  library: { animation: { easing: 'linear', duration: 100 } },
+}
 
 // Firebase app
 const firebaseConfig = {

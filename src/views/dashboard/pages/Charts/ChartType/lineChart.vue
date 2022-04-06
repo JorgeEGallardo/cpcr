@@ -15,8 +15,7 @@
           empty="No data"
           loading="Cargando"
           :min="null"
-          :curve="false"
-          @change="test"
+          :curve="this.datos[0].curve"
         />
         <v-btn @click="test">
           test
@@ -45,7 +44,7 @@
       //   return Math.ceil(min - min * 0.005)
       // },
       test () {
-        console.log(this.datos[0].data)
+        // console.log(this.datos[0].curve)
       },
     },
   }

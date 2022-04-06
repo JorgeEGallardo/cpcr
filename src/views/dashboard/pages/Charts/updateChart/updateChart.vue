@@ -14,123 +14,44 @@
           Pushear mas informacion
         </div>
       </template>
-      <v-container>
-        <v-row>
-          <v-col>
-            <!-- <v-text-field
-              v-model="fecha"
-              label="Fecha"
-            /> -->
-
-            <v-menu
-              v-model="menu"
-              :close-on-content-click="false"
-              :nudge-right="40"
-              transition="scale-transition"
-              offset-y
-              min-width="auto"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <v-text-field
-                  v-model="fecha"
-                  label="Fecha"
-                  prepend-icon="mdi-calendar"
-                  readonly
-                  v-bind="attrs"
-                  v-on="on"
-                />
-              </template>
-              <v-date-picker
-                v-model="fecha"
-                @input="datepick = false"
-              />
-            </v-menu>
-          </v-col>
-          <v-col>
-            <v-text-field
-              v-model="cantidad"
-              label="Cantidad"
-            />
-          </v-col>
-          <v-col>
-            <v-select
-              v-model="categoria"
-              :items="['Vencida', 'Estimacion', 'scatterVencida']"
-              label="Categoria"
-            />
-          </v-col>
-        </v-row>
-        <v-btn
-          class="primary"
-          @click="update(categoria)"
+      <v-card
+        class="mb-4"
+        outlined
+      >
+        <v-card-title
+          class="text-h3 primary justify-center color"
         >
-          enviar
-        </v-btn>
-      </v-container>
+          Añadir a globales
+        </v-card-title>
+        <cpcr-general />
+      </v-card>
+      <v-card class="mb-4">
+        <v-card-title
+          class="text-h3 primary justify-center color"
+        >
+          Añadir a Quad
+        </v-card-title>
+        <cpcr-quad />
+      </v-card>
     </base-material-card>
   </v-container>
 </template>
 
 <script>
   import { mapState } from 'vuex'
-  import { db } from '@/main'
+
+  import CpcrGeneral from './updateChartGeneral.vue'
+  import CpcrQuad from './updateQuadChart.vue'
 
   export default {
-    data () {
-      return {
-        menu: false,
-        categoria: '',
-        fecha: new Date(Date.now()).toISOString().substr(0, 10),
-        cantidad: '',
-        temporal: [],
-        temporal2: [],
-      }
-    },
+    components: { CpcrGeneral, CpcrQuad },
     computed: {
       ...mapState(['barColor', 'barImage', 'user']),
     },
-    methods: {
-      cambio () {
-        alert(this.fecha)
-      },
-      async update () {
-        alert(
-          ' Categoria: ' +
-            this.categoria +
-            ' Fecha: ' +
-            this.fecha +
-            ' Cantidad: ' +
-            this.cantidad,
-        )
-        console.log(this.categoria)
-        await db
-          .collection('charts')
-          .doc(this.categoria)
-          .get()
-          .then(res => {
-            const dataToUpdate = res.data()
-            // temporal.push({ data: { [this.fecha]: this.cantidad } })
-            // {{ [this.fecha]: this.cantidad }}
-
-            // 0123456789
-            // 2022-04-04
-            const newDate =
-              this.categoria === 'scatterVencida'
-                ? this.fecha.substring(0, 4) +
-                  this.fecha.substring(5, 7) +
-                  this.fecha.substring(8, 10)
-                : this.fecha
-            alert(newDate)
-            const dataFinal = {
-              data: { ...dataToUpdate.data, [newDate]: this.cantidad },
-            }
-            this.temporal2 = dataFinal
-          })
-        await db
-          .collection('charts')
-          .doc(this.categoria)
-          .update(this.temporal2)
-      },
-    },
   }
 </script>
+<style scoped>
+  .color{
+    color: white;
+  }
+</style>
