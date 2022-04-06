@@ -6,6 +6,7 @@
           v-model="coleccion"
           :items="['ChartSucursales', 'charts']"
           label="Colección"
+          @change="test"
         />
       </v-col>
       <v-col>
@@ -53,19 +54,10 @@
     >
       enviar
     </v-btn>
-    <v-btn
-      class="error"
-      @click="test()"
-    >
-      ᵇʳᵒᵐᶦᵗᵃ
-    </v-btn>
   </v-container>
 </template>
 
 <script>
-  import { mapState } from 'vuex'
-  import { db } from '@/main'
-
   export default {
     data () {
       return {
@@ -77,68 +69,16 @@
         temporal2: [],
         opciones: '',
         documento: [],
+        coleccion: '',
       }
     },
     computed: {
       ...mapState(['barColor', 'barImage', 'user']),
     },
-    created: {
-      async test () {
-        await db
-          .collection(this.collection)
-          .get()
-          .then(res => {
-            res.forEach(doc => {
-              this.documento.push(doc.id)
-            })
-          })
-        console.log(this.documento)
-      },
+    created () {
+      this.test()
     },
     methods: {
-      async test () {
-        await db
-          .collection('ChartSucursales')
-          .get()
-          .then(res => {
-            res.forEach(doc => {
-              this.documento.push(doc.id)
-            })
-          })
-        console.log(this.documento)
-      },
-      async update () {
-        alert(
-          ' Categoria: ' +
-            this.categoria +
-            ' Fecha: ' +
-            this.fecha +
-            ' Cantidad: ' +
-            this.cantidad,
-        )
-        // console.log(this.categoria)
-        await db
-          .collection(this.coleccion)
-          .doc(this.categoria)
-          .get()
-          .then(res => {
-            const dataToUpdate = res.data()
-            const newDate =
-              this.categoria === 'scatterVencida'
-                ? this.fecha.substring(0, 4) +
-                  this.fecha.substring(5, 7) +
-                  this.fecha.substring(8, 10)
-                : this.fecha
-            const dataFinal = {
-              data: { ...dataToUpdate.data, [newDate]: this.cantidad },
-            }
-            this.temporal2 = dataFinal
-          })
-        await db
-          .collection(this.coleccion)
-          .doc(this.categoria)
-          .update(this.temporal2)
-      },
-    },
+},
   }
 </script>

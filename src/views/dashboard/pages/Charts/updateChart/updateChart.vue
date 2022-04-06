@@ -14,44 +14,132 @@
           Pushear mas informacion
         </div>
       </template>
-      <v-card
-        class="mb-4"
-        outlined
+      <v-row>
+        <v-col>
+          <v-select
+            v-model="coleccion"
+            :items="['ChartSucursales', 'charts']"
+            label="Colección"
+            @change="test"
+          />
+        </v-col>
+        <v-col>
+          <v-menu
+            v-model="menu"
+            :close-on-content-click="false"
+            :nudge-right="40"
+            transition="scale-transition"
+            offset-y
+            min-width="auto"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-text-field
+                v-model="fecha"
+                label="Fecha"
+                prepend-icon="mdi-calendar"
+                readonly
+                v-bind="attrs"
+                v-on="on"
+              />
+            </template>
+            <v-date-picker
+              v-model="fecha"
+              @input="datepick = false"
+            />
+          </v-menu>
+        </v-col>
+        <v-col>
+          <v-text-field
+            v-model="cantidad"
+            label="Cantidad"
+          />
+        </v-col>
+        <v-col>
+          <v-select
+            v-model="categoria"
+            :items="documento"
+            label="Categoria"
+          />
+        </v-col>
+      </v-row>
+      <v-btn
+        class="primary"
+        @click="update(categoria)"
       >
-        <v-card-title
-          class="text-h3 primary justify-center color"
-        >
-          Añadir a globales
-        </v-card-title>
-        <cpcr-general />
-      </v-card>
-      <v-card class="mb-4">
-        <v-card-title
-          class="text-h3 primary justify-center color"
-        >
-          Añadir a Quad
-        </v-card-title>
-        <cpcr-quad />
-      </v-card>
+        enviar
+      </v-btn>
     </base-material-card>
   </v-container>
 </template>
 
 <script>
   import { mapState } from 'vuex'
-
-  import CpcrGeneral from './updateChartGeneral.vue'
-  import CpcrQuad from './updateQuadChart.vue'
+  import { db } from '@/main'
 
   export default {
-    components: { CpcrGeneral, CpcrQuad },
+    data () {
+      return {
+        menu: false,
+        categoria: '',
+        fecha: new Date(Date.now()).toISOString().substr(0, 10),
+        cantidad: '',
+        temporal: [],
+        temporal2: [],
+        opciones: '',
+        documento: [],
+        coleccion: 'charts',
+      }
+    },
     computed: {
       ...mapState(['barColor', 'barImage', 'user']),
     },
+    created () {
+      this.test()
+    },
+    methods: {
+      async test () {
+        await db
+          .collection(this.coleccion)
+          .get()
+          .then(res => {
+            this.documento = []
+            res.forEach(doc => {
+              this.documento.push(doc.id)
+            })
+          })
+        console.log(this.documento)
+      },
+      async update () {
+        alert(
+          ' Categoria: ' +
+            this.categoria +
+            ' Fecha: ' +
+            this.fecha +
+            ' Cantidad: ' +
+            this.cantidad,
+        )
+        await db
+          .collection(this.coleccion)
+          .doc(this.categoria)
+          .get()
+          .then(res => {
+            const dataToUpdate = res.data()
+            const newDate =
+              this.categoria === 'scatterVencida'
+                ? this.fecha.substring(0, 4) +
+                  this.fecha.substring(5, 7) +
+                  this.fecha.substring(8, 10)
+                : this.fecha
+            const dataFinal = {
+              data: { ...dataToUpdate.data, [newDate]: this.cantidad },
+            }
+            this.temporal2 = dataFinal
+          })
+        await db
+          .collection(this.coleccion)
+          .doc(this.categoria)
+          .update(this.temporal2)
+      },
+    },
   }
 </script>
-<style scoped>
-  .color{
-    color: white;
-  }
-</style>
