@@ -20,8 +20,8 @@
       </template>
       <cpcr-piechart />
       <cpcr-barchart />
-      <cpcr-linechart :datos="arrayT[0]" />
-      <cpcr-linechart :datos="arrayT[1]" />
+      <cpcr-areachart :datos="arrayT[0]" />
+      <cpcr-areachart :datos="arrayT[1]" />
       <cpcr-linechart :datos="arrayT[2]" />
     </base-material-card>
   </v-container>
@@ -34,9 +34,10 @@
   import CpcrPiechart from './ChartType/pieChart.vue'
   import CpcrBarchart from './ChartType/barChart.vue'
   import CpcrLinechart from './ChartType/lineChart.vue'
+  import CpcrAreachart from './ChartType/areaChart.vue'
 
   export default {
-    components: { CpcrPiechart, CpcrBarchart, CpcrLinechart },
+    components: { CpcrPiechart, CpcrBarchart, CpcrLinechart, CpcrAreachart },
     data () {
       return {
         arrayT: [],

@@ -2,10 +2,10 @@
   <v-container>
     <v-card class="color center">
       <v-card-title
-        class="text primary center color"
+        class="text-h4 primary center color"
         color="white"
       >
-        {{ datos[0].name }}
+        {{ datos[0].titulo }}
       </v-card-title>
       <div class="my-6">
         <line-chart
@@ -43,9 +43,7 @@
       //   var min = Math.min(...temp)
       //   return Math.ceil(min - min * 0.005)
       // },
-      test () {
-        // console.log(this.datos[0].curve)
-      },
+      test () {},
     },
   }
 </script>
