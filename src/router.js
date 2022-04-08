@@ -204,6 +204,12 @@ const router = new Router({
           component: () =>
             import('@/views/dashboard/pages/Charts/updateChart/updateChart.vue'),
         },
+        {
+          name: 'Metas',
+          path: '/Metas',
+          component: () =>
+            import('@/views/dashboard/pages/goals/goalsList.vue'),
+        },
       ],
     },
   ],
