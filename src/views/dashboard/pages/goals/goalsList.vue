@@ -15,11 +15,14 @@
           cobranza, recuperacion, captacion y llamadas de cortesia
         </div>
       </template>
+      <cpcr-goals :info="metas[0]" />
+      <cpcr-goals :info="metas[1]" />
+      <cpcr-goals :info="metas[2]" />
+      <cpcr-goals :info="metas[3]" />
+      <v-btn @click="test">
+        ñ
+      </v-btn>
     </base-material-card>
-    <cpcr-goals :info="metas[0]" />
-    <cpcr-goals :info="metas[1]" />
-    <cpcr-goals :info="metas[2]" />
-    <cpcr-goals :info="metas[3]" />
   </v-container>
 </template>
 <script>
@@ -37,14 +40,21 @@
       ...mapState(['barColor', 'barImage', 'user']),
     },
     created () {
-      db.collection('Goals')
-        .get()
-        .then(res => {
-          res.forEach(doc => {
-            // this.remesas.push({ id: doc.id, ...doc.data() })
-            this.metas.push({ id: doc.id, ...doc.data() })
+      this.refTable()
+    },
+    methods: {
+      async refTable () {
+        await db
+        db.collection('Goals')
+          .doc('sucursales')
+          .get()
+          .then(res => {
+            console.log(res)
+            // res.forEach(doc => {
+            //   console.log(doc.data)
+            // })
           })
-        })
+      },
     },
   }
 </script>

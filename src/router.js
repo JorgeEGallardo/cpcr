@@ -196,19 +196,29 @@ const router = new Router({
           name: 'Nueva remesa',
           path: '/AgregarRemesa',
           component: () =>
-            import('@/views/dashboard/pages/remittance/newRemittance/newRemittance.vue'),
+            import(
+              '@/views/dashboard/pages/remittance/newRemittance/newRemittance.vue'
+            ),
         },
         {
           name: 'Nuevo grafico',
           path: '/NuevoGrafico',
           component: () =>
-            import('@/views/dashboard/pages/Charts/updateChart/updateChart.vue'),
+            import(
+              '@/views/dashboard/pages/Charts/updateChart/updateChart.vue'
+            ),
         },
         {
           name: 'Metas',
           path: '/Metas',
           component: () =>
             import('@/views/dashboard/pages/goals/goalsList.vue'),
+        },
+        {
+          name: 'nueva meta',
+          path: '/actualizacionMetas',
+          component: () =>
+            import('@/views/dashboard/pages/goals/addGoals/addGoals.vue'),
         },
       ],
     },

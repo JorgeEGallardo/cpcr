@@ -20,7 +20,7 @@
             v-model="coleccion"
             :items="['ChartSucursales', 'charts']"
             label="Colección"
-            @change="test"
+            @change="updateCat"
           />
         </v-col>
         <v-col>
@@ -94,10 +94,10 @@
       ...mapState(['barColor', 'barImage', 'user']),
     },
     created () {
-      this.test()
+      this.updateCat()
     },
     methods: {
-      async test () {
+      async updateCat () {
         await db
           .collection(this.coleccion)
           .get()
