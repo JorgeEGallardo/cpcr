@@ -1,21 +1,21 @@
 <template>
-  <v-container
-    id=""
-    tag="section"
-  >
+  <v-container tag="section">
     <v-expansion-panels popout>
       <v-expansion-panel>
-        <v-expansion-panel-header class="text-h4 primary justify-center white">
-          {{ info.titulo }}
+        <v-expansion-panel-header
+          color="primary"
+          class="d-flex justify-Aleft text-h3 white"
+        >
+          {{ info.id }}
+          <template v-slot:actions>
+            <v-icon color="primary">
+              $expand
+            </v-icon>
+          </template>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
-          <v-data-table
-            :headers="headers"
-            :items="info"
-          />
-
           <v-container>
-            <v-row>
+            <!-- <v-row>
               <v-col>
                 <v-row>captación</v-row>
                 <v-row>cobranza</v-row>
@@ -28,11 +28,44 @@
                 <v-row>{{ info.llamadas }}</v-row>
                 <v-row>{{ info.recuperacion }}</v-row>
               </v-col>
+            </v-row> -->
+            <v-row>
+              <v-col class="Aleft">
+                Captación
+              </v-col>
+              <v-col class="Aright">
+                {{ info.captacion }}
+              </v-col>
             </v-row>
+            <v-divider />
+            <v-row>
+              <v-col class="Aleft">
+                Cobranza
+              </v-col>
+              <v-col class="Aright">
+                {{ info.cobranza }}
+              </v-col>
+            </v-row>
+            <v-divider />
+            <v-row>
+              <v-col class="Aleft">
+                Llamadas
+              </v-col>
+              <v-col class="Aright">
+                {{ info.llamadas }}
+              </v-col>
+            </v-row>
+            <v-divider />
+            <v-row>
+              <v-col class="Aleft">
+                Recuperación
+              </v-col>
+              <v-col class="Aright">
+                {{ info.recuperacion }}
+              </v-col>
+            </v-row>
+            <v-divider />
           </v-container>
-          <v-btn @click="test">
-            a
-          </v-btn>
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -44,7 +77,7 @@
   export default {
     props: {
       info: {
-        type: Array,
+        type: Object,
         default: null,
       },
     },
@@ -53,19 +86,25 @@
         expanded: [],
         singleExpand: true,
         search: '',
-        metas: [],
         sucursal: '',
+        headers: [
+          {
+            text: 'Si',
+          },
+          {
+            text: 'No',
+          },
+        ],
       }
     },
     computed: {
       ...mapState(['barColor', 'barImage', 'user']),
     },
-    created () {
-      console.log(this.info)
-    },
+    created () {},
     methods: {
       test () {
-        console.log(this.info)
+        console.log(this.info.captacion)
+        console.table(this.info)
       },
     },
   }
@@ -73,5 +112,13 @@
 <style scoped>
 .white {
   color: white;
+}
+.Aleft {
+  text-align: Aleft;
+  font-size: 1.5em;
+}
+.Aright {
+  text-align: right;
+  font-size: 1.5em;
 }
 </style>

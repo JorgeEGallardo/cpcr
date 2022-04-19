@@ -19,9 +19,8 @@
         <v-col>
           <v-select
             v-model="sucursal"
-            :items="documento"
+            :items="sucursales"
             label="Sucursal"
-            @change="updateSuc"
           />
         </v-col>
         <v-col>
@@ -62,7 +61,7 @@
     data () {
       return {
         temporal: [],
-        sucursales: [],
+        sucursales: ['Centro', 'Matriz', 'Salto', 'Sombrerete'],
         documento: [],
         sucursal: 'Matriz',
         captacion: '',
@@ -74,42 +73,34 @@
     computed: {
       ...mapState(['barColor', 'barImage', 'usllamadaser']),
     },
-    created () {
-      this.updateSuc()
-    },
+    created () {},
     methods: {
-      async updateSuc () {
-        await db
-          .collection('Goals')
-          .get()
-          .then(res => {
-            this.documento = []
-            res.forEach(doc => {
-              this.documento.push(doc.id)
-            })
-          })
-      },
       async updateData () {
         await db
           .collection('Goals')
           .doc('sucursales')
           .get()
           .then(res => {
+            const dataToUpdate = res.data()
             const dataFinal = {
-              [this.sucursales]: {
+              ...dataToUpdate.data,
+              [this.sucursal]: {
                 captacion: this.captacion,
                 cobranza: this.cobranza,
                 llamadas: this.llamadas,
                 recuperacion: this.recuperacion,
+                id: this.sucursal,
               },
             }
             this.temporal = dataFinal
           })
-        console.log(this.temporal)
         await db
           .collection('Goals')
           .doc('sucursales')
           .update(this.temporal)
+        this.$toast.success('Completado', {
+          position: 'bottom-right',
+        })
       },
     },
   }

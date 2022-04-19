@@ -107,7 +107,7 @@
               this.documento.push(doc.id)
             })
           })
-        console.log(this.documento)
+        // console.log(this.documento)
       },
       async update () {
         alert(

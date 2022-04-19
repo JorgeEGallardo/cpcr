@@ -15,13 +15,32 @@
           cobranza, recuperacion, captacion y llamadas de cortesia
         </div>
       </template>
-      <cpcr-goals :info="metas[0]" />
-      <cpcr-goals :info="metas[1]" />
-      <cpcr-goals :info="metas[2]" />
-      <cpcr-goals :info="metas[3]" />
-      <v-btn @click="test">
-        ñ
-      </v-btn>
+      <v-row no-gutters>
+        <v-col
+          cols="12"
+          md="6"
+        >
+          <cpcr-goals :info="metas.Matriz" />
+        </v-col>
+        <v-col
+          cols="12"
+          md="6"
+        >
+          <cpcr-goals :info="metas.Centro" />
+        </v-col>
+        <v-col
+          cols="12"
+          md="6"
+        >
+          <cpcr-goals :info="metas.Salto" />
+        </v-col>
+        <v-col
+          cols="12"
+          md="6"
+        >
+          <cpcr-goals :info="metas.Sombrerete" />
+        </v-col>
+      </v-row>
     </base-material-card>
   </v-container>
 </template>
@@ -34,6 +53,7 @@
     data () {
       return {
         metas: [],
+        visible: false,
       }
     },
     computed: {
@@ -45,14 +65,11 @@
     methods: {
       async refTable () {
         await db
-        db.collection('Goals')
+          .collection('Goals')
           .doc('sucursales')
           .get()
           .then(res => {
-            console.log(res)
-            // res.forEach(doc => {
-            //   console.log(doc.data)
-            // })
+            this.metas = res.data()
           })
       },
     },
