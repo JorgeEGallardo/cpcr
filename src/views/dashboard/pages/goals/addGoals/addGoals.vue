@@ -8,49 +8,56 @@
       <!-- Header -->
       <template v-slot:heading>
         <div class="text-h3 font-weight-light">
-          <v-icon>mdi-chart-donut-variant</v-icon> Añadir
+          <v-icon>mdi-tooltip-plus</v-icon> Actualizar progreso
         </div>
 
         <div class="text-subtitle-1 font-weight-light">
-          añade
+          Actualiza el progreso de tu sucursal
         </div>
       </template>
-      <v-row>
-        <v-col>
-          <v-select
-            v-model="sucursal"
-            :items="sucursales"
-            label="Sucursal"
-          />
-        </v-col>
-        <v-col>
-          <v-text-field
-            v-model="captacion"
-            label="captacion"
-          />
-        </v-col>
-        <v-col>
-          <v-text-field
-            v-model="cobranza"
-            label="cobranza"
-          />
-        </v-col>
-        <v-col>
-          <v-text-field
-            v-model="llamadas"
-            label="llamadas"
-          />
-        </v-col>
-        <v-col>
-          <v-text-field
-            v-model="recuperacion"
-            label="recuperacion"
-          />
-        </v-col>
-      </v-row>
-      <v-btn @click="updateData">
-        Soy un botón
-      </v-btn>
+      <v-form ref="form">
+        <v-contaner>
+          <v-row>
+            <v-col>
+              <v-select
+                v-model="sucursal"
+                :items="sucursales"
+                label="Sucursal"
+              />
+            </v-col>
+            <v-col>
+              <v-text-field
+                v-model="captacion"
+                label="Captación"
+              />
+            </v-col>
+            <v-col>
+              <v-text-field
+                v-model="cobranza"
+                label="Cobranza"
+              />
+            </v-col>
+            <v-col>
+              <v-text-field
+                v-model="llamadas"
+                label="Llamadas"
+              />
+            </v-col>
+            <v-col>
+              <v-text-field
+                v-model="recuperacion"
+                label="Recuperación"
+              />
+            </v-col>
+          </v-row>
+          <v-btn
+            color="primary"
+            @click="updateData"
+          >
+            Actualizar datos
+          </v-btn>
+        </v-contaner>
+      </v-form>
     </base-material-card>
   </v-container>
 </template>
@@ -61,9 +68,9 @@
     data () {
       return {
         temporal: [],
-        sucursales: ['Centro', 'Matriz', 'Salto', 'Sombrerete'],
+        sucursales: ['Centro', 'Maestro', 'Salto', 'Sombrerete'],
         documento: [],
-        sucursal: 'Matriz',
+        sucursal: 'Maestro',
         captacion: '',
         cobranza: '',
         llamadas: '',
@@ -101,6 +108,7 @@
         this.$toast.success('Completado', {
           position: 'bottom-right',
         })
+        this.$refs.form.reset()
       },
     },
   }

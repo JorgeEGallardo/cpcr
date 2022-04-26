@@ -7,11 +7,11 @@
     <base-material-card color="primary">
       <template v-slot:heading>
         <div class="text-h3 font-weight-light">
-          Actualizar grafico
+          <v-icon>mdi-poll</v-icon>Actualizar grafico
         </div>
 
         <div class="text-subtitle-1 font-weight-light">
-          Pushear mas informacion
+          Actualizar con informacion mas reciente
         </div>
       </template>
       <v-row>

@@ -9,9 +9,15 @@
       </v-card-title>
       <div class="my-6">
         <column-chart
-          :data="data"
+          :data="datos"
+          :min="null"
+          prefix="$"
+          thousands=","
         />
       </div>
+      <v-btn @click="test">
+        a
+      </v-btn>
     </v-card>
   </v-container>
 </template>
@@ -30,18 +36,24 @@
     // labelDirectuion: 'explode`,
     //   },
     // },
+    props: {
+      datos: {
+        type: Array,
+        default: null,
+      },
+    },
     data () {
       return {
-        data: [
-          ['Sun', 32],
-          ['Mon', 46],
-          ['Tue', 28],
-          ['Wed', 21],
-          ['Thu', 20],
-          ['Fri', 13],
-          ['Sat', 27],
-        ],
+        reorder: [],
       }
+    },
+    methods: {
+      // test () {
+      //   for (let i = 0; i < this.datos.length; i++) {
+      //     this.reorder.push(this.datos[i])
+      //   }
+      //   console.log(this.reorder)
+      // },
     },
   }
 </script>

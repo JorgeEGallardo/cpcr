@@ -15,11 +15,8 @@
           empty="No data"
           loading="Cargando"
           :min="null"
-          :curve="this.datos[0].curve"
+          :curve="datos[0].curve"
         />
-        <v-btn @click="test">
-          test
-        </v-btn>
       </div>
     </v-card>
   </v-container>
@@ -43,7 +40,6 @@
       //   var min = Math.min(...temp)
       //   return Math.ceil(min - min * 0.005)
       // },
-      test () {},
     },
   }
 </script>

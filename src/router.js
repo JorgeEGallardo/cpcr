@@ -167,12 +167,6 @@ const router = new Router({
             import('@/views/dashboard/pages/File/fileImport/fileImport.vue'),
         },
         {
-          name: 'CHART-TEST',
-          path: '/TestChart',
-          component: () =>
-            import('@/views/dashboard/pages/Charts/bodyChart.vue'),
-        },
-        {
           name: 'añadir Transferencias',
           path: '/agregarTransferencias',
           component: () =>
@@ -201,8 +195,14 @@ const router = new Router({
             ),
         },
         {
-          name: 'Nuevo grafico',
-          path: '/NuevoGrafico',
+          name: 'Graficos',
+          path: '/Graficos',
+          component: () =>
+            import('@/views/dashboard/pages/Charts/bodyChart.vue'),
+        },
+        {
+          name: 'Actualizar',
+          path: '/ActualizarGrafico',
           component: () =>
             import(
               '@/views/dashboard/pages/Charts/updateChart/updateChart.vue'
@@ -215,8 +215,8 @@ const router = new Router({
             import('@/views/dashboard/pages/goals/goalsList.vue'),
         },
         {
-          name: 'nueva meta',
-          path: '/actualizacionMetas',
+          name: 'Actualizacion progreso',
+          path: '/actualizacionProgreso',
           component: () =>
             import('@/views/dashboard/pages/goals/addGoals/addGoals.vue'),
         },

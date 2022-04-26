@@ -15,20 +15,6 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-container>
-            <!-- <v-row>
-              <v-col>
-                <v-row>captación</v-row>
-                <v-row>cobranza</v-row>
-                <v-row>llamadas</v-row>
-                <v-row>recuperación</v-row>
-              </v-col>
-              <v-col>
-                <v-row>{{ info.captacion }}</v-row>
-                <v-row>{{ info.cobranza }}</v-row>
-                <v-row>{{ info.llamadas }}</v-row>
-                <v-row>{{ info.recuperacion }}</v-row>
-              </v-col>
-            </v-row> -->
             <v-row>
               <v-col class="Aleft">
                 Captación
@@ -87,25 +73,10 @@
         singleExpand: true,
         search: '',
         sucursal: '',
-        headers: [
-          {
-            text: 'Si',
-          },
-          {
-            text: 'No',
-          },
-        ],
       }
     },
     computed: {
       ...mapState(['barColor', 'barImage', 'user']),
-    },
-    created () {},
-    methods: {
-      test () {
-        console.log(this.info.captacion)
-        console.table(this.info)
-      },
     },
   }
 </script>

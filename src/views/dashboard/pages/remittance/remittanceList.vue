@@ -26,7 +26,7 @@
           <td>
             <v-select
               v-model="sucursal"
-              :items="['Matriz', 'Centro', 'Salto', 'Sombrerete', '']"
+              :items="['Maestro', 'Centro', 'Salto', 'Sombrerete', '']"
               label="Sucursal"
             />
           </td>
@@ -49,9 +49,6 @@
         </td>
       </template>
     </v-data-table>
-    <v-btn @click="test">
-    a
-  </v-btn>
   </v-container>
 </template>
 
@@ -128,7 +125,7 @@
     },
     methods: {
       test () {
-        console.log(this.remesas)
+      // console.log(this.remesas)
       },
       async refTable () {
         try {
@@ -141,7 +138,9 @@
               })
             })
         } catch (error) {
-          alert('Hubó un error')
+          this.$toast.error('Hubo un error', {
+            position: 'bottom-right',
+          })
         }
       },
       async deleteItem (item) {

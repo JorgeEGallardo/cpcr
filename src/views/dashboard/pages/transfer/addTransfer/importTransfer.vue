@@ -1,6 +1,6 @@
 <template>
   <v-container
-    id=""
+    id="addTransfer"
     fluid
     tag="section"
   >
@@ -15,153 +15,155 @@
           Bitacora de transferencias
         </div>
       </template>
-      <v-container>
-        <v-row>
-          <v-col
-            cols="12"
-            md="2"
-          >
-            <v-text-field
-              v-model="formData.numeroSocio"
-              label="Numero de socio"
-              hint="Formato: x-xx-xxxx"
-            />
-          </v-col>
-          <v-col
-            cols="12"
-            md="3"
-          >
-            <v-text-field
-              v-model="formData.nombreSocio"
-              label="Nombre del socio"
-              hint="Nombre A.paterno A.materno"
-            />
-          </v-col>
-          <v-col
-            cols="12"
-            md="3"
-          >
-            <v-text-field
-              v-model="formData.NoCuentaTransferencia"
-              label="Numero de cuenta transferencia"
-            />
-          </v-col>
-          <v-col
-            cols="12"
-            md="2"
-          >
-            <v-text-field
-              v-model="formData.cantidad"
-              label="Cantidad"
-            />
-          </v-col>
-          <v-col
-            cols="12"
-            md="2"
-          >
-            <v-select
-              v-model="formData.sucursal"
-              :items="['Matriz', 'Centro', 'Salto', 'Sombrerete']"
-              label="Sucursal"
-            />
-          </v-col>
-          <v-col
-            cols="12"
-            md="2"
-          >
-            <v-select
-              v-model="formData.efectivo"
-              :items="['Si', 'No']"
-              label="Transferencia en efectivo"
-            />
-          </v-col>
-          <v-col
-            cols="12"
-            md="4"
-          >
-            <v-text-field
-              v-model="formData.producto"
-              label="Producto"
-            />
-          </v-col>
-          <v-col
-            cols="12"
-            md="3"
-          >
-            <v-menu
-              v-model="menu22"
-              :close-on-content-click="false"
-              :nudge-right="40"
-              transition="scale-transition"
-              offset-y
-              min-width="auto"
+      <v-form ref="form">
+        <v-container>
+          <v-row>
+            <v-col
+              cols="12"
+              md="2"
             >
-              <template v-slot:activator="{ on, attrs }">
-                <v-text-field
+              <v-text-field
+                v-model="formData.numeroSocio"
+                label="Numero de socio"
+                hint="Formato: x-xx-xxxx"
+              />
+            </v-col>
+            <v-col
+              cols="12"
+              md="3"
+            >
+              <v-text-field
+                v-model="formData.nombreSocio"
+                label="Nombre del socio"
+                hint="Nombre A.paterno A.materno"
+              />
+            </v-col>
+            <v-col
+              cols="12"
+              md="3"
+            >
+              <v-text-field
+                v-model="formData.NoCuentaTransferencia"
+                label="Numero de cuenta transferencia"
+              />
+            </v-col>
+            <v-col
+              cols="12"
+              md="2"
+            >
+              <v-text-field
+                v-model="formData.cantidad"
+                label="Cantidad"
+              />
+            </v-col>
+            <v-col
+              cols="12"
+              md="2"
+            >
+              <v-select
+                v-model="formData.sucursal"
+                :items="['Maestro', 'Centro', 'Salto', 'Sombrerete']"
+                label="Sucursal"
+              />
+            </v-col>
+            <v-col
+              cols="12"
+              md="2"
+            >
+              <v-select
+                v-model="formData.efectivo"
+                :items="['Si', 'No']"
+                label="Transferencia en efectivo"
+              />
+            </v-col>
+            <v-col
+              cols="12"
+              md="4"
+            >
+              <v-text-field
+                v-model="formData.producto"
+                label="Producto"
+              />
+            </v-col>
+            <v-col
+              cols="12"
+              md="3"
+            >
+              <v-menu
+                v-model="menu22"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                transition="scale-transition"
+                offset-y
+                min-width="auto"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="formData.fechaTra"
+                    label="Fecha de la transferencia"
+                    prepend-icon="mdi-calendar"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                  />
+                </template>
+                <v-date-picker
                   v-model="formData.fechaTra"
-                  label="Fecha de la transferencia"
-                  prepend-icon="mdi-calendar"
-                  readonly
-                  v-bind="attrs"
-                  v-on="on"
+                  @input="menu22 = false"
                 />
-              </template>
-              <v-date-picker
-                v-model="formData.fechaTra"
-                @input="menu22 = false"
-              />
-            </v-menu>
-          </v-col>
-          <v-col
-            cols="12"
-            md="3"
-          >
-            <v-menu
-              v-model="menu"
-              :close-on-content-click="false"
-              :nudge-right="40"
-              transition="scale-transition"
-              offset-y
-              min-width="auto"
+              </v-menu>
+            </v-col>
+            <v-col
+              cols="12"
+              md="3"
             >
-              <template v-slot:activator="{ on, attrs }">
-                <v-text-field
+              <v-menu
+                v-model="menu"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                transition="scale-transition"
+                offset-y
+                min-width="auto"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="formData.fechaMov"
+                    label="Movimiento en caja"
+                    prepend-icon="mdi-calendar"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                  />
+                </template>
+                <v-date-picker
                   v-model="formData.fechaMov"
-                  label="Movimiento en caja"
-                  prepend-icon="mdi-calendar"
-                  readonly
-                  v-bind="attrs"
-                  v-on="on"
+                  @input="menu = false"
                 />
-              </template>
-              <v-date-picker
-                v-model="formData.fechaMov"
-                @input="menu = false"
-              />
-            </v-menu>
-          </v-col>
-          <v-col
-            cols="12"
-            md="12"
-          >
-            <v-textarea
-              v-model="formData.descripcion"
-              label="Descripcion"
-            />
-          </v-col>
-          <v-col
-            cols="12"
-            md="md"
-          >
-            <v-btn
-              color="primary"
-              @click="addTransfer"
+              </v-menu>
+            </v-col>
+            <v-col
+              cols="12"
+              md="12"
             >
-              Añadir
-            </v-btn>
-          </v-col>
-        </v-row>
-      </v-container>
+              <v-textarea
+                v-model="formData.descripcion"
+                label="Descripcion"
+              />
+            </v-col>
+            <v-col
+              cols="12"
+              md="md"
+            >
+              <v-btn
+                color="primary"
+                @click="addTransfer"
+              >
+                Añadir
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-form>
     </base-material-card>
   </v-container>
 </template>
@@ -196,14 +198,21 @@
     },
     methods: {
       addTransfer () {
-        var data = this.formData
-        db.collection('transfList')
-          .add(data)
-          .then(res => {
-            this.$toast.success('Se ha añadido: ' + data.nombreSocio, {
-              position: 'bottom-right',
+        try {
+          var data = this.formData
+          db.collection('transfList')
+            .add(data)
+            .then(res => {
+              this.$toast.success('Se ha añadido: ' + data.nombreSocio, {
+                position: 'bottom-right',
+              })
+              this.$refs.form.reset()
             })
+        } catch (error) {
+          this.$toast.error('Hubo un error', {
+            position: 'bottom-right',
           })
+        }
       },
     },
   }

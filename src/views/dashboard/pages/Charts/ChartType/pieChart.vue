@@ -6,7 +6,7 @@
       </v-card-title>
       <div>
         <pie-chart
-          :data="datosLinea"
+          :data="datos"
           :donut="true"
         />
       </div>
@@ -15,7 +15,6 @@
 </template>
 
 <script>
-  import { db } from '@/main'
   export default {
     // props: {
     //   chartTitle: { type: String, default: 'DEFAULT' },
@@ -30,28 +29,23 @@
     //     labelDirectuion: 'explode`,
     //   },
     // },
+    props: {
+      datos: {
+        type: Array,
+        default: null,
+      },
+    },
     data () {
       return {
-        datosLinea: [],
-        data: [
-          ['Blueberry', 44],
-          ['Strawberry', 23],
-          ['Banana', 22],
-          ['Apple', 21],
-          ['Grape', 13],
-          ['Mango', 100],
-        ],
+        data: [],
       }
     },
-    created () {
-      db.collection('charts')
-        .where('cat', '==', 'pie')
-        .get()
-        .then(snap => {
-          snap.forEach(doc => {
-            this.datosLinea.push(doc.data())
-          })
-        })
+    created () {},
+    methods: {
+      test () {
+      // console.log(this.datos[0])
+      // console.table(this.datos)
+      },
     },
   }
 </script>

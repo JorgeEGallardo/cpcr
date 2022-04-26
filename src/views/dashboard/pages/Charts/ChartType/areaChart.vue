@@ -17,10 +17,10 @@
           :min="null"
           :curve="this.datos[0].curve"
         />
-        <v-btn @click="test">
-          test
-        </v-btn>
       </div>
+      <v-btn @click="test">
+        a
+      </v-btn>
     </v-card>
   </v-container>
 </template>
@@ -33,7 +33,11 @@
       },
     },
     data () {
-      return {}
+      return {
+        datos2: [],
+        datos3: [],
+        A: { a: 1, b: 2, c: 3 },
+      }
     },
     methods: {
       // minimo () {
@@ -44,7 +48,14 @@
       //   return Math.ceil(min - min * 0.005)
       // },
       test () {
-        // console.log(this.datos[0].curve)
+        // this.datos.forEach(element => {
+        //   this.datos2[element] = element.data
+        //   this.datos3 = Object.keys(this.datos2[element])
+        // })
+        // console.table(this.datos[0].data)
+        // console.table(this.datos2)
+        // //
+        console.table(this.datos)
       },
     },
   }

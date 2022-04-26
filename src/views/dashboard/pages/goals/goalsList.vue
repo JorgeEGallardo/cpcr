@@ -8,7 +8,7 @@
       <!-- Header -->
       <template v-slot:heading>
         <div class="text-h3 font-weight-light">
-          <v-icon>mdi-file-chart</v-icon> Metas (?)
+          <v-icon>mdi-file-chart</v-icon> Metas
         </div>
 
         <div class="text-subtitle-1 font-weight-light">
@@ -20,7 +20,7 @@
           cols="12"
           md="6"
         >
-          <cpcr-goals :info="metas.Matriz" />
+          <cpcr-goals :info="metas.Maestro" />
         </v-col>
         <v-col
           cols="12"

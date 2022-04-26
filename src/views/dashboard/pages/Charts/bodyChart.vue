@@ -18,11 +18,44 @@
           Vista grafíca
         </div>
       </template>
-      <cpcr-piechart />
-      <cpcr-barchart />
-      <cpcr-areachart :datos="arrayT[0]" />
-      <cpcr-areachart :datos="arrayT[1]" />
-      <cpcr-linechart :datos="arrayT[2]" />
+      <v-row no-gutters>
+        <v-col
+          cols="12"
+          md="6"
+        >
+          <cpcr-piechart
+            v-if="false"
+            :datos="arrayT[0]"
+          />
+        </v-col>
+        <v-col
+          cols="12"
+          md="6"
+        >
+          <cpcr-barchart
+            v-if="false"
+            :datos="arrayT[2]"
+          />
+        </v-col>
+        <v-col
+          cols="12"
+          md="6"
+        >
+          <cpcr-areachart :datos="arrayT[0]" />
+        </v-col>
+        <v-col
+          cols="12"
+          md="6"
+        >
+          <cpcr-areachart :datos="arrayT[1]" />
+        </v-col>
+        <v-col
+          cols="12"
+          md="12"
+        >
+          <cpcr-linechart :datos="arrayT[2]" />
+        </v-col>
+      </v-row>
     </base-material-card>
   </v-container>
 </template>
