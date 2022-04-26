@@ -55,7 +55,7 @@
         // console.table(this.datos[0].data)
         // console.table(this.datos2)
         // //
-        console.table(this.datos)
+        // console.table(this.datos)
       },
     },
   }
