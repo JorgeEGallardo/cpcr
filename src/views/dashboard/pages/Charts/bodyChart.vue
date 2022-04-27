@@ -4,10 +4,7 @@
     fluid
     tag="section"
   >
-    <base-material-card
-      v-if="loaded"
-      color="primary"
-    >
+    <base-material-card color="primary">
       <!-- Header -->
       <template v-slot:heading>
         <div class="text-h3 font-weight-light">
@@ -18,7 +15,10 @@
           Vista grafíca
         </div>
       </template>
-      <v-row no-gutters>
+      <v-row
+        v-show="loaded"
+        no-gutters
+      >
         <v-col
           cols="12"
           md="6"
@@ -85,8 +85,21 @@
       this.refTable(1, 'carteraVencida')
       this.refTable(2, 'scatterVencida')
       this.loaded = true
+      this.easteregg()
     },
     methods: {
+      easteregg () {
+        const espec = new Date('11/28/2022')
+        const today = new Date()
+        if (
+          espec.getMonth() === today.getMonth() &&
+          today.getDate() === espec.getDate()
+        ) {
+          console.log('Feliz Cumpleaños')
+        } else {
+          console.log('hola mundo')
+        }
+      },
       async refTable (arrayIndex, categoria) {
         try {
           await db

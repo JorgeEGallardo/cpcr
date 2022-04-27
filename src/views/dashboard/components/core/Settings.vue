@@ -153,7 +153,7 @@
         '#FF5252',
         '#000000',
       ],
-      image: 'https://demos.creative-tim.com/material-dashboard/assets/img/sidebar-1.jpg',
+      image: '',
       images: [
         'https://pbs.twimg.com/media/FKBySi0acAYvVOk?format=jpg&name=small',
         'https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-1.23832d31.jpg',

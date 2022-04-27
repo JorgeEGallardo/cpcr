@@ -48,14 +48,14 @@
       //   return Math.ceil(min - min * 0.005)
       // },
       test () {
-        // this.datos.forEach(element => {
-        //   this.datos2[element] = element.data
-        //   this.datos3 = Object.keys(this.datos2[element])
-        // })
-        // console.table(this.datos[0].data)
-        // console.table(this.datos2)
-        // //
-        // console.table(this.datos)
+      // this.datos.forEach(element => {
+      //   this.datos2[element] = element.data
+      //   this.datos3 = Object.keys(this.datos2[element])
+      // })
+      // console.table(this.datos[0].data)
+      // console.table(this.datos2)
+      // //
+      // console.table(this.datos)
       },
     },
   }
