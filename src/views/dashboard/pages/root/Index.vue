@@ -245,7 +245,7 @@
                     if (this.permArray.includes(element.id)) {
                       this.perm.push({
                         ...element.data(),
-                        inArray: true,
+                        inArray: 'true',
                         id: element.id,
                       })
                     } else {

@@ -23,24 +23,6 @@
           cols="12"
           md="6"
         >
-          <cpcr-piechart
-            v-if="false"
-            :datos="arrayT[0]"
-          />
-        </v-col>
-        <v-col
-          cols="12"
-          md="6"
-        >
-          <cpcr-barchart
-            v-if="false"
-            :datos="arrayT[2]"
-          />
-        </v-col>
-        <v-col
-          cols="12"
-          md="6"
-        >
           <cpcr-areachart :datos="arrayT[0]" />
         </v-col>
         <v-col
@@ -51,9 +33,15 @@
         </v-col>
         <v-col
           cols="12"
-          md="12"
+          md="6"
         >
           <cpcr-linechart :datos="arrayT[2]" />
+        </v-col>
+        <v-col
+          cols="12"
+          md="6"
+        >
+          <cpcr-barchart :datos="arrayT[2]" />
         </v-col>
       </v-row>
     </base-material-card>
@@ -64,17 +52,17 @@
   import { mapState } from 'vuex'
   import { db } from '@/main'
 
-  import CpcrPiechart from './ChartType/pieChart.vue'
   import CpcrBarchart from './ChartType/barChart.vue'
   import CpcrLinechart from './ChartType/lineChart.vue'
   import CpcrAreachart from './ChartType/areaChart.vue'
 
   export default {
-    components: { CpcrPiechart, CpcrBarchart, CpcrLinechart, CpcrAreachart },
+    components: { CpcrBarchart, CpcrLinechart, CpcrAreachart },
     data () {
       return {
         arrayT: [],
         loaded: false,
+        arraySlice: [],
       }
     },
     computed: {
@@ -85,21 +73,8 @@
       this.refTable(1, 'carteraVencida')
       this.refTable(2, 'scatterVencida')
       this.loaded = true
-      this.easteregg()
     },
     methods: {
-      easteregg () {
-        const espec = new Date('11/28/2022')
-        const today = new Date()
-        if (
-          espec.getMonth() === today.getMonth() &&
-          today.getDate() === espec.getDate()
-        ) {
-          console.log('Feliz Cumpleaños')
-        } else {
-          console.log('hola mundo')
-        }
-      },
       async refTable (arrayIndex, categoria) {
         try {
           await db
@@ -112,6 +87,17 @@
                 snap.forEach(doc => {
                   arrayData.push(doc.data())
                 })
+                const ordered = Object.keys(arrayData[0].data)
+                  .sort()
+                  .reduce((obj, key) => {
+                    obj[key] = arrayData[0].data[key]
+                    return obj
+                  }, {})
+                this.arraySlice = ordered
+                const sliced = Object.fromEntries(
+                  Object.entries(this.arraySlice).slice(-20),
+                )
+                arrayData[0].data = sliced
                 this.$set(this.arrayT, arrayIndex, arrayData)
               })
           } else {
@@ -122,6 +108,21 @@
                 snap.forEach(doc => {
                   arrayData.push(doc.data())
                 })
+                console.log(arrayData)
+                var ordered = []
+                for (let i = 0; i < arrayData.length; i++) {
+                  ordered = Object.keys(arrayData[i].data)
+                    .sort()
+                    .reduce((obj, key) => {
+                      obj[key] = arrayData[i].data[key]
+                      return obj
+                    }, {})
+                  this.arraySlice = ordered
+                  const sliced = Object.fromEntries(
+                    Object.entries(this.arraySlice).slice(-20),
+                  )
+                  arrayData[i].data = sliced
+                }
                 this.$set(this.arrayT, arrayIndex, arrayData)
               })
           }

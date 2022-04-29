@@ -2,10 +2,10 @@
   <v-container>
     <v-card class="color center">
       <v-card-title
-        class="text primary center color"
+        class="text-h4 primary center color"
         color="white"
       >
-        barras
+        {{ datos[0].titulo }} barras
       </v-card-title>
       <div class="my-6">
         <column-chart
@@ -15,9 +15,6 @@
           thousands=","
         />
       </div>
-      <v-btn @click="test">
-        a
-      </v-btn>
     </v-card>
   </v-container>
 </template>
@@ -48,12 +45,12 @@
       }
     },
     methods: {
-      // test () {
-      //   for (let i = 0; i < this.datos.length; i++) {
-      //     this.reorder.push(this.datos[i])
-      //   }
-      //   console.log(this.reorder)
-      // },
+    // test () {
+    //   for (let i = 0; i < this.datos.length; i++) {
+    //     this.reorder.push(this.datos[i])
+    //   }
+    //   console.log(this.reorder)
+    // },
     },
   }
 </script>

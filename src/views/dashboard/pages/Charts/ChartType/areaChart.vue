@@ -18,9 +18,6 @@
           :curve="this.datos[0].curve"
         />
       </div>
-      <v-btn @click="test">
-        a
-      </v-btn>
     </v-card>
   </v-container>
 </template>
@@ -55,7 +52,12 @@
       // console.table(this.datos[0].data)
       // console.table(this.datos2)
       // //
-      // console.table(this.datos)
+      // this.datos2 = this.datos[0].data
+      // console.log(this.datos2)
+      // var size = Object.keys(this.datos2).lengths
+      // const sliced = Object.fromEntries(Object.entries(this.datos2).slice(-3))
+      // console.log(sliced, ' ', size)
+      // //
       },
     },
   }
