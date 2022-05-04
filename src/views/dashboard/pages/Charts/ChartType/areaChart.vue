@@ -31,9 +31,6 @@
     },
     data () {
       return {
-        datos2: [],
-        datos3: [],
-        A: { a: 1, b: 2, c: 3 },
       }
     },
     methods: {

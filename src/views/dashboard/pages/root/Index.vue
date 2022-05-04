@@ -84,7 +84,7 @@
             </v-container>
           </v-form>
 
-          <v-container class="py-0">
+          <v-container class="py-1">
             <v-btn
               color="primary"
               class="mr-0"
@@ -93,6 +93,7 @@
               Reiniciar permisos
             </v-btn>
             <v-btn
+              v-if="false"
               color="primary"
               class="mr-0"
               @click="getUsers()"
@@ -103,7 +104,7 @@
             <v-select
               v-model="userPerm"
               :items="allUsers"
-              label="Standard"
+              label="Usuario"
               @change="getUser()"
             />
             <v-form>
@@ -143,6 +144,17 @@
                 </tbody>
               </v-simple-table>
             </v-form>
+            <v-form>
+              <v-select
+                v-model="globalPermName"
+                :items="allPerm"
+                label="Permiso"
+                @change="getPerm"
+              />
+              <v-btn @click="setGlobalPerm">
+                a
+              </v-btn>
+            </v-form>
           </v-container>
         </base-material-card>
       </v-col>
@@ -167,9 +179,15 @@
         title: '',
         prio: 3,
       },
+      allPerm: [],
+      globalPermName: '',
+      globalPermId: '',
+      allPermArray: [],
+      AllPermUsers: [],
     }),
     created () {
       this.getUsers()
+      this.getPerms()
     },
     methods: {
       perm (icon, title, to) {
@@ -193,11 +211,14 @@
             snapshot.forEach(doc => {
               perm.push(doc.id)
             })
-            alert('Hubo un error')
             db.collection('users')
               .doc('A0LFHdIWxSQoPznjWwwYIKWcnRr1')
               .update({ permissions: perm })
+            db.collection('users')
+              .doc('PXhNsledHeTxWWzyOkSkKfDl1Bs1')
+              .update({ permissions: perm })
           })
+      // max PXhNsledHeTxWWzyOkSkKfDl1Bs1
       },
       updatePerm: async function () {
         await db
@@ -307,6 +328,67 @@
             })
           })
       },
+      async setGlobalPerm () {
+        var perms = []
+        try {
+          await db
+            .collection('users')
+            .get()
+            .then(snapshot => {
+              snapshot.forEach(doc => {
+                this.AllPermUsers = {
+                  ...this.AllPermUsers,
+                  [doc.id]: doc.data().permissions,
+                }
+                perms = Object.values(this.AllPermUsers[doc.id])
+                console.log(perms)
+                console.log(typeof perms)
+                console.error('^ pre push')
+                // const inList = perms.findIndex(perm => {
+                //   return perm === this.globalPermId
+                // })
+                perms.push(this.globalPermId)
+                console.log(perms)
+                console.log(typeof perms)
+                console.error('^ post push')
+                // if (inList === -1) {
+                // db.collection('users')
+                //   .doc(doc.id)
+                //   .update({
+                //     permissions: { ...perms },
+                //   })
+                // }
+              })
+            })
+        } catch (error) {
+          console.error(error)
+        }
+      },
+      getPerms () {
+        const allPermT = []
+        db.collection('permissions')
+          .get()
+          .then(snapshot => {
+            snapshot.forEach(doc => {
+              allPermT.push(doc.data().title)
+            })
+          })
+        this.allPerm = allPermT
+        console.log(this.allPerm)
+      },
+      async getPerm () {
+        await db
+          .collection('permissions')
+          .where('title', '==', this.globalPermName)
+          .get()
+          .then(snapshot => {
+            snapshot.forEach(doc => {
+              this.globalPermId = doc.id
+            })
+          })
+        console.log(this.globalPermName + ' ' + this.globalPermId)
+      },
     },
   }
+// RU2tX44HGpClAr9btgdX 34SzhwzcB9jMudbZMadF UHBm2SuTR71t5SvII6RS bQ4NyLYwjeT0QSa1lfDM fiQxZdey8FchD9TXYkYk
 </script>

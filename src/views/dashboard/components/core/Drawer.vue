@@ -73,11 +73,9 @@
   </v-navigation-drawer>
 </template>
 <script>
-  // Utilities
+// Utilities
   import { db } from '@/main'
-  import {
-    mapState,
-  } from 'vuex'
+  import { mapState } from 'vuex'
   export default {
     name: 'DashboardCoreDrawer',
 
@@ -90,7 +88,7 @@
 
     data: () => ({
       items: [
-        /* {
+      /* {
           title: 'Listas bloqueadas',
           icon: 'mdi-table-lock',
           to: '/pages/addBlocked/bloqueadas',
@@ -163,20 +161,25 @@
       },
     },
     created () {
-      db
-        .collection('users')
+      db.collection('users')
         .doc(this.user.data.uid)
-        .get().then((doc) => {
+        .get()
+        .then(doc => {
           // //console.log(doc)
           if (doc.exists) {
-            doc.data().permissions.forEach(element => {
-              db.collection('permissions').doc(element).get().then((perm) => {
-                this.items.push(perm.data())
-              })
+            const permission1 = doc.data().permissions
+            Object.keys(permission1).forEach(key => {
+              db.collection('permissions')
+                .doc(permission1[key])
+                .get()
+                .then(perm => {
+                  this.items.push(perm.data())
+                })
             })
           }
-        }).catch((error) => {
-          alert('Error getting document:', error)
+        })
+        .catch(error => {
+          console.error('Error getting document:', error)
         })
     },
     methods: {
@@ -192,58 +195,58 @@
 </script>
 
 <style lang="sass">
-  @import '~vuetify/src/styles/tools/_rtl.sass'
+@import '~vuetify/src/styles/tools/_rtl.sass'
 
-  #core-navigation-drawer
-    .v-list-group__header.v-list-item--active:before
-      opacity: .24
+#core-navigation-drawer
+  .v-list-group__header.v-list-item--active:before
+    opacity: .24
 
+  .v-list-item
+    &__icon--text,
+    &__icon:first-child
+      justify-content: center
+      text-align: center
+      width: 20px
+
+      +ltr()
+        margin-right: 24px
+        margin-left: 12px !important
+
+      +rtl()
+        margin-left: 24px
+        margin-right: 12px !important
+
+  .v-list--dense
     .v-list-item
       &__icon--text,
       &__icon:first-child
-        justify-content: center
-        text-align: center
-        width: 20px
+        margin-top: 10px
+
+  .v-list-group--sub-group
+    .v-list-item
+      +ltr()
+        padding-left: 8px
+
+      +rtl()
+        padding-right: 8px
+
+    .v-list-group__header
+      +ltr()
+        padding-right: 0
+
+      +rtl()
+        padding-right: 0
+
+      .v-list-item__icon--text
+        margin-top: 19px
+        order: 0
+
+      .v-list-group__header__prepend-icon
+        order: 2
 
         +ltr()
-          margin-right: 24px
-          margin-left: 12px !important
+          margin-right: 8px
 
         +rtl()
-          margin-left: 24px
-          margin-right: 12px !important
-
-    .v-list--dense
-      .v-list-item
-        &__icon--text,
-        &__icon:first-child
-          margin-top: 10px
-
-    .v-list-group--sub-group
-      .v-list-item
-        +ltr()
-          padding-left: 8px
-
-        +rtl()
-          padding-right: 8px
-
-      .v-list-group__header
-        +ltr()
-          padding-right: 0
-
-        +rtl()
-          padding-right: 0
-
-        .v-list-item__icon--text
-          margin-top: 19px
-          order: 0
-
-        .v-list-group__header__prepend-icon
-          order: 2
-
-          +ltr()
-            margin-right: 8px
-
-          +rtl()
-            margin-left: 8px
+          margin-left: 8px
 </style>

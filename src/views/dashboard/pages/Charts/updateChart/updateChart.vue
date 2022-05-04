@@ -14,60 +14,62 @@
           Actualizar con informacion mas reciente
         </div>
       </template>
-      <v-row>
-        <v-col>
-          <v-select
-            v-model="coleccion"
-            :items="['ChartSucursales', 'charts']"
-            label="Colección"
-            @change="updateCat"
-          />
-        </v-col>
-        <v-col>
-          <v-menu
-            v-model="menu"
-            :close-on-content-click="false"
-            :nudge-right="40"
-            transition="scale-transition"
-            offset-y
-            min-width="auto"
-          >
-            <template v-slot:activator="{ on, attrs }">
-              <v-text-field
-                v-model="fecha"
-                label="Fecha"
-                prepend-icon="mdi-calendar"
-                readonly
-                v-bind="attrs"
-                v-on="on"
-              />
-            </template>
-            <v-date-picker
-              v-model="fecha"
-              @input="datepick = false"
+      <v-form>
+        <v-row>
+          <v-col>
+            <v-select
+              v-model="coleccion"
+              :items="['ChartSucursales', 'charts']"
+              label="Colección"
+              @change="updateCat"
             />
-          </v-menu>
-        </v-col>
-        <v-col>
-          <v-text-field
-            v-model="cantidad"
-            label="Cantidad"
-          />
-        </v-col>
-        <v-col>
-          <v-select
-            v-model="categoria"
-            :items="documento"
-            label="Categoria"
-          />
-        </v-col>
-      </v-row>
-      <v-btn
-        class="primary"
-        @click="update(categoria)"
-      >
-        enviar
-      </v-btn>
+          </v-col>
+          <v-col>
+            <v-menu
+              v-model="menu"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              transition="scale-transition"
+              offset-y
+              min-width="auto"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  v-model="fecha"
+                  label="Fecha"
+                  prepend-icon="mdi-calendar"
+                  readonly
+                  v-bind="attrs"
+                  v-on="on"
+                />
+              </template>
+              <v-date-picker
+                v-model="fecha"
+                @input="datepick = false"
+              />
+            </v-menu>
+          </v-col>
+          <v-col>
+            <v-text-field
+              v-model="cantidad"
+              label="Cantidad"
+            />
+          </v-col>
+          <v-col>
+            <v-select
+              v-model="categoria"
+              :items="documento"
+              label="Categoria"
+            />
+          </v-col>
+        </v-row>
+        <v-btn
+          class="primary"
+          @click="update(categoria)"
+        >
+          enviar
+        </v-btn>
+      </v-form>
     </base-material-card>
   </v-container>
 </template>
@@ -107,7 +109,6 @@
               this.documento.push(doc.id)
             })
           })
-        // console.log(this.documento)
       },
       async update () {
         alert(
