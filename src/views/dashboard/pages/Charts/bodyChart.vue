@@ -87,7 +87,6 @@
                 snap.forEach(doc => {
                   arrayData.push(doc.data())
                 })
-                console.log(arrayData)
                 const ordered = Object.keys(arrayData[0].data)
                   .sort()
                   .reduce((obj, key) => {

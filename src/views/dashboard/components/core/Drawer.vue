@@ -179,7 +179,7 @@
           }
         })
         .catch(error => {
-          console.error('Error getting document:', error)
+          alert('Error getting document:', error)
         })
     },
     methods: {

@@ -101,60 +101,78 @@
               Usuarios
             </v-btn>
             <hr>
-            <v-select
-              v-model="userPerm"
-              :items="allUsers"
-              label="Usuario"
-              @change="getUser()"
-            />
-            <v-form>
-              <v-simple-table>
-                <thead>
-                  <tr>
-                    <th />
-                    <th class="subheading font-weight-light text-center">
-                      Free
-                    </th>
-                    <th class="subheading font-weight-light text-center">
-                      PRO
-                    </th>
-                  </tr>
-                </thead>
-                <tbody class="text-center">
-                  <tr
-                    v-for="item in perm"
-                    :key="item"
-                  >
-                    <td>{{ item.id }}</td>
-                    <td>{{ item.title }}</td>
-                    <td>{{ item.to }}</td>
-                    <td>
-                      <v-checkbox
-                        v-model="item.inArray"
-                        :label="item.inArray"
+            <v-row>
+              <v-col
+                cols="12"
+                md="8"
+              >
+                <v-select
+                  v-model="userPerm"
+                  :items="allUsers"
+                  label="Usuario"
+                  @change="getUser()"
+                />
+                <v-form>
+                  <v-simple-table>
+                    <thead>
+                      <tr>
+                        <th />
+                        <th class="subheading font-weight-light text-center">
+                          Free
+                        </th>
+                        <th class="subheading font-weight-light text-center">
+                          PRO
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody class="text-center">
+                      <tr
+                        v-for="item in perm"
+                        :key="item"
+                      >
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.title }}</td>
+                        <td>{{ item.to }}</td>
+                        <td>
+                          <v-checkbox
+                            v-model="item.inArray"
+                            :label="item.inArray"
+                            color="primary"
+                            value="true"
+                            hide-details
+                          />
+                        </td>
+                      </tr>
+                      <v-btn
                         color="primary"
-                        value="true"
-                        hide-details
-                      />
-                    </td>
-                  </tr>
-                  <v-btn @click="updatePerm">
-                    Actualizar
+                        @click="updatePerm"
+                      >
+                        Actualizar
+                      </v-btn>
+                    </tbody>
+                  </v-simple-table>
+                </v-form>
+              </v-col>
+              <v-col
+                cols="12"
+                md="4"
+              >
+                <v-form>
+                  <v-select
+                    v-model="globalPermName"
+                    :items="allPerm"
+                    label="Permiso"
+                    @change="getPerm"
+                  />
+                  <v-btn
+                    color="primary"
+                    @click="setGlobalPerm"
+                  >
+                    Convertir en permiso global
                   </v-btn>
-                </tbody>
-              </v-simple-table>
-            </v-form>
-            <v-form>
-              <v-select
-                v-model="globalPermName"
-                :items="allPerm"
-                label="Permiso"
-                @change="getPerm"
-              />
-              <v-btn @click="setGlobalPerm">
-                a
-              </v-btn>
-            </v-form>
+                </v-form>
+              </v-col>
+            </v-row>
           </v-container>
         </base-material-card>
       </v-col>
