@@ -108,7 +108,7 @@
                 snap.forEach(doc => {
                   arrayData.push(doc.data())
                 })
-                console.log(arrayData)
+                // console.log(arrayData)
                 var ordered = []
                 for (let i = 0; i < arrayData.length; i++) {
                   ordered = Object.keys(arrayData[i].data)

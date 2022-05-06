@@ -341,27 +341,29 @@
                   [doc.id]: doc.data().permissions,
                 }
                 perms = Object.values(this.AllPermUsers[doc.id])
-                console.log(perms)
-                console.log(typeof perms)
-                console.error('^ pre push')
-                // const inList = perms.findIndex(perm => {
-                //   return perm === this.globalPermId
-                // })
+                // console.log(perms)
+                // console.log(Array.isArray(perms))
+                // console.error('^ pre push')
+                const inList = perms.findIndex(perm => {
+                  return perm === this.globalPermId
+                })
                 perms.push(this.globalPermId)
-                console.log(perms)
-                console.log(typeof perms)
-                console.error('^ post push')
-                // if (inList === -1) {
-                // db.collection('users')
-                //   .doc(doc.id)
-                //   .update({
-                //     permissions: { ...perms },
-                //   })
-                // }
+                // console.log(perms)
+                // console.log(Array.isArray(perms))
+                // console.error('^ post push')
+                if (inList === -1) {
+                  // console.log(perms, doc.id)
+                  // console.error('inList -1 ' + doc.data().name)
+                  db.collection('users')
+                    .doc(doc.id)
+                    .update({
+                      permissions: { ...perms },
+                    })
+                }
               })
             })
         } catch (error) {
-          console.error(error)
+          // console.error(error)
         }
       },
       getPerms () {
@@ -374,7 +376,7 @@
             })
           })
         this.allPerm = allPermT
-        console.log(this.allPerm)
+        // console.log(this.allPerm)
       },
       async getPerm () {
         await db
@@ -386,7 +388,7 @@
               this.globalPermId = doc.id
             })
           })
-        console.log(this.globalPermName + ' ' + this.globalPermId)
+        // console.log(this.globalPermName + ' ' + this.globalPermId)
       },
     },
   }
