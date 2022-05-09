@@ -25,10 +25,12 @@
       />
       <!-- Lista -->
       <v-container>
-        <v-row>
+        <v-row dense>
           <v-col
             v-for="v in filteredList"
             :key="v"
+            cols="12"
+            md="3"
           >
             <cpcr-list
               :videoid="v.url"

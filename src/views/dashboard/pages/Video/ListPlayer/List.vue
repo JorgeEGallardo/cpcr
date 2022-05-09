@@ -2,8 +2,9 @@
   <v-card
     outlined
     hover
-    class="center centro py-2"
+    class="center centro primary"
     width="250px"
+    height="275px"
     @click="updateVideo"
   >
     <v-img
@@ -12,8 +13,7 @@
       :src="srcImg"
       :lazy-src="srcImg"
     />
-    <v-divider />
-    <v-card-title class="text">
+    <v-card-title class="d-flex text-h4 justify-center primary white">
       {{ videoTitulo }}
     </v-card-title>
   </v-card>
@@ -42,7 +42,6 @@
           .collection('videos')
           .doc(this.user.data.uid)
           .set({ videoId: this.videoid })
-          .then(res => {})
           .catch(error => {
             alert('No se pudo actualizar el registro' + error)
           })
@@ -55,7 +54,7 @@
 .centro {
   text-align: center;
 }
-.text {
-  font-size: 12px;
+.white {
+  color: white;
 }
 </style>

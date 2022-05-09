@@ -18,7 +18,7 @@
       class="subtexto"
       color="black"
     >
-      {{ fileUrl }}
+      Enlace: " {{ fileUrl }} "
     </v-card-text>
   </v-card>
 </template>

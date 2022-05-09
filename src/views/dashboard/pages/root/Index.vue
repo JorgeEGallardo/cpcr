@@ -100,77 +100,93 @@
             >
               Usuarios
             </v-btn>
+            <p />
             <hr>
-            <v-row>
+            <v-row no-gutters>
               <v-col
                 cols="12"
                 md="8"
               >
-                <v-select
-                  v-model="userPerm"
-                  :items="allUsers"
-                  label="Usuario"
-                  @change="getUser()"
-                />
-                <v-form>
-                  <v-simple-table>
-                    <thead>
-                      <tr>
-                        <th />
-                        <th class="subheading font-weight-light text-center">
-                          Free
-                        </th>
-                        <th class="subheading font-weight-light text-center">
-                          PRO
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody class="text-center">
-                      <tr
-                        v-for="item in perm"
-                        :key="item"
-                      >
-                        <td>{{ item.id }}</td>
-                        <td>{{ item.title }}</td>
-                        <td>{{ item.to }}</td>
-                        <td>
-                          <v-checkbox
-                            v-model="item.inArray"
-                            :label="item.inArray"
-                            color="primary"
-                            value="true"
-                            hide-details
-                          />
-                        </td>
-                      </tr>
-                      <v-btn
-                        color="primary"
-                        @click="updatePerm"
-                      >
-                        Actualizar
-                      </v-btn>
-                    </tbody>
-                  </v-simple-table>
-                </v-form>
+                <v-container>
+                  <v-card-title
+                    class="d-flex text-h3 primary justify-center white"
+                  >
+                    Gestionar permisos de usuarios
+                  </v-card-title>
+                  <v-select
+                    v-model="userPerm"
+                    :items="allUsers"
+                    label="Usuario"
+                    @change="getUser()"
+                  />
+                  <v-form>
+                    <v-simple-table v-show="visible">
+                      <thead>
+                        <tr>
+                          <th />
+                          <th class="subheading font-weight-light text-center">
+                            Titulo
+                          </th>
+                          <th class="subheading font-weight-light text-center">
+                            Direccion
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody class="text-center">
+                        <tr
+                          v-for="item in perm"
+                          :key="item"
+                        >
+                          <td>{{ item.id }}</td>
+                          <td>{{ item.title }}</td>
+                          <td>{{ item.to }}</td>
+                          <td>
+                            <v-checkbox
+                              v-model="item.inArray"
+                              :label="item.inArray"
+                              color="primary"
+                              value="true"
+                              hide-details
+                            />
+                          </td>
+                        </tr>
+                        <v-btn
+                          color="primary"
+                          @click="updatePerm"
+                        >
+                          Actualizar
+                        </v-btn>
+                      </tbody>
+                    </v-simple-table>
+                  </v-form>
+                </v-container>
               </v-col>
               <v-col
                 cols="12"
                 md="4"
               >
-                <v-form>
-                  <v-select
-                    v-model="globalPermName"
-                    :items="allPerm"
-                    label="Permiso"
-                    @change="getPerm"
-                  />
-                  <v-btn
-                    color="primary"
-                    @click="setGlobalPerm"
+                <v-container>
+                  <v-card-text
+                    class="d-flex text-h3 primary justify-center white"
                   >
-                    Convertir en permiso global
-                  </v-btn>
-                </v-form>
+                    Establecer permiso global
+                  </v-card-text>
+                  <v-form>
+                    <v-select
+                      v-model="globalPermName"
+                      :items="allPerm"
+                      label="Permiso"
+                      @change="getPerm"
+                    />
+                    <v-btn
+                    v-if="visblePerms"
+                      color="primary"
+                      @click="setGlobalPerm"
+                    >
+                      Convertir en permiso global
+                    </v-btn>
+                  </v-form>
+                </v-container>
               </v-col>
             </v-row>
           </v-container>
@@ -202,6 +218,8 @@
       globalPermId: '',
       allPermArray: [],
       AllPermUsers: [],
+      visible: false,
+      visblePerms: false,
     }),
     created () {
       this.getUsers()
@@ -273,6 +291,7 @@
           .where('email', '==', this.userPerm)
           .get()
           .then(snapshot => {
+            this.visible = true
             snapshot.forEach(async doc => {
               this.permArray = doc.data().permissions
               this.perm = []
@@ -394,13 +413,18 @@
           .where('title', '==', this.globalPermName)
           .get()
           .then(snapshot => {
+            this.visblePerms = true
             snapshot.forEach(doc => {
               this.globalPermId = doc.id
             })
           })
-      // console.log(this.globalPermName + ' ' + this.globalPermId)
       },
     },
   }
 // RU2tX44HGpClAr9btgdX 34SzhwzcB9jMudbZMadF UHBm2SuTR71t5SvII6RS bQ4NyLYwjeT0QSa1lfDM fiQxZdey8FchD9TXYkYk
 </script>
+<style>
+.white {
+  color: white;
+}
+</style>
