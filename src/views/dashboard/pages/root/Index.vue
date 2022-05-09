@@ -102,14 +102,17 @@
             </v-btn>
             <p />
             <hr>
-            <v-row no-gutters>
+            <v-row
+              no-gutters
+              dense
+            >
               <v-col
                 cols="12"
                 md="8"
               >
                 <v-container>
                   <v-card-title
-                    class="d-flex text-h3 primary justify-center white"
+                    class="d-flex text-h3 primary justify-center white font-weight-light"
                   >
                     Gestionar permisos de usuarios
                   </v-card-title>
@@ -120,15 +123,24 @@
                     @change="getUser()"
                   />
                   <v-form>
-                    <v-simple-table v-show="visible">
+                    <v-simple-table
+                      v-show="visible"
+                      height="300"
+                      fixed-header
+                    >
                       <thead>
                         <tr>
-                          <th />
+                          <th class="subheading font-weight-light text-center">
+                            Documento
+                          </th>
                           <th class="subheading font-weight-light text-center">
                             Titulo
                           </th>
                           <th class="subheading font-weight-light text-center">
                             Direccion
+                          </th>
+                          <th class="subheading font-weight-light text-center">
+                            Estado
                           </th>
                         </tr>
                       </thead>
@@ -150,6 +162,7 @@
                             />
                           </td>
                         </tr>
+                        <p />
                         <v-btn
                           color="primary"
                           @click="updatePerm"
@@ -167,7 +180,7 @@
               >
                 <v-container>
                   <v-card-text
-                    class="d-flex text-h3 primary justify-center white"
+                    class="d-flex text-h3 primary justify-center white font-weight-light"
                   >
                     Establecer permiso global
                   </v-card-text>
@@ -179,7 +192,7 @@
                       @change="getPerm"
                     />
                     <v-btn
-                    v-if="visblePerms"
+                      v-if="visblePerms"
                       color="primary"
                       @click="setGlobalPerm"
                     >
@@ -278,9 +291,13 @@
                   .doc(doc.id)
                   .update({ permissions: permToUpdate })
               } catch (error) {
-                alert(error)
+                this.$toast.error('hubo un problema ' + error, {
+                  position: 'bottom-right',
+                })
               } finally {
-                alert('Registro actualizado con exito')
+                this.$toast.success('Registro Actualizado con exito', {
+                  position: 'bottom-right',
+                })
               }
             })
           })
@@ -390,9 +407,14 @@
                     })
                 }
               })
+              this.$toast.success('Permiso global añadido', {
+                position: 'bottom-right',
+              })
             })
         } catch (error) {
-        // console.error(error)
+          this.$toast.error('Hubo un problema ' + error, {
+            position: 'bottom-right',
+          })
         }
       },
       getPerms () {
@@ -421,7 +443,6 @@
       },
     },
   }
-// RU2tX44HGpClAr9btgdX 34SzhwzcB9jMudbZMadF UHBm2SuTR71t5SvII6RS bQ4NyLYwjeT0QSa1lfDM fiQxZdey8FchD9TXYkYk
 </script>
 <style>
 .white {

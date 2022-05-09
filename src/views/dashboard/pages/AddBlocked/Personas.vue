@@ -9,9 +9,7 @@
         cols="12"
         md="12"
       >
-        <base-material-card
-          color="primary"
-        >
+        <base-material-card color="primary">
           <template v-slot:heading>
             <div class="text-h3 font-weight-light">
               Personas bloqueadas
@@ -49,9 +47,7 @@
                   />
                 </v-col>
 
-                <v-col
-                  cols="12"
-                >
+                <v-col cols="12">
                   <v-text-field
                     id="instruccion"
                     v-model="formData.instruccion"
@@ -176,26 +172,33 @@
         formData: {
           nombre: '',
           rfc: '',
-          actualizacion: (new Date(Date.now())).toISOString().substr(0, 10),
+          actualizacion: new Date(Date.now()).toISOString().substr(0, 10),
           instruccion: '',
           curp: '',
           folio: '',
-          fechanac: (new Date(Date.now())).toISOString().substr(0, 10),
+          fechanac: new Date(Date.now()).toISOString().substr(0, 10),
           is_active: true,
-          fechafolio: (new Date(Date.now())).toISOString().substr(0, 10),
+          fechafolio: new Date(Date.now()).toISOString().substr(0, 10),
         },
       }
     },
     methods: {
       createPost () {
         // //console.log(this.formData)
-        axios.post('http://10.35.1.106:8000/api/blocked', this.formData)
-          .then((response) => {
+        axios
+          .post('http://10.35.1.106:8000/api/blocked', this.formData)
+          .then(response => {
             // //console.log(response)
-            alert(this.formData.nombre + ' registrado con éxito.')
+            this.$toast.success(this.formData.nombre + ' registrado con éxito.', {
+              position: 'bottom-right',
+            })
             this.$refs.form.reset()
           })
-          .catch((error) => alert(error))
+          .catch(error =>
+            this.$toast.error('Algo anda mal: ' + error, {
+              position: 'bottom-right',
+            }),
+          )
       },
     },
   }
