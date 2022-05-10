@@ -111,11 +111,14 @@
                 md="8"
               >
                 <v-container>
-                  <v-card-title
-                    class="d-flex text-h3 primary justify-center white font-weight-light"
+                  <v-card
+                    flat
+                    class="d-flex text-h3 primary justify-center white--text font-weight-light"
                   >
-                    Gestionar permisos de usuarios
-                  </v-card-title>
+                    <div class="my-1">
+                      Gestionar permisos de usuarios
+                    </div>
+                  </v-card>
                   <v-select
                     v-model="userPerm"
                     :items="allUsers"
@@ -179,11 +182,14 @@
                 md="4"
               >
                 <v-container>
-                  <v-card-text
-                    class="d-flex text-h3 primary justify-center white font-weight-light"
+                  <v-card
+                    flat
+                    class="d-flex text-h3 primary justify-center white--text font-weight-light"
                   >
-                    Establecer permiso global
-                  </v-card-text>
+                    <div class="my-1">
+                      Establecer permiso global
+                    </div>
+                  </v-card>
                   <v-form>
                     <v-select
                       v-model="globalPermName"
@@ -444,8 +450,3 @@
     },
   }
 </script>
-<style>
-.white {
-  color: white;
-}
-</style>
