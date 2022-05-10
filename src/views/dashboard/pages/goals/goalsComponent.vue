@@ -4,7 +4,7 @@
       <v-expansion-panel>
         <v-expansion-panel-header
           color="primary"
-          class="d-flex justify-Aleft text-h3 white"
+          class="d-flex justify-Aleft text-h3 white--text"
         >
           {{ info.id }}
           <template v-slot:actions>
@@ -81,9 +81,6 @@
   }
 </script>
 <style scoped>
-.white {
-  color: white;
-}
 .Aleft {
   text-align: Aleft;
   font-size: 1.5em;

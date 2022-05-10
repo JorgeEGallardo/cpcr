@@ -34,7 +34,6 @@
                     label="icono"
                   />
                 </v-col>
-
                 <v-col
                   cols="12"
                   md="4"
@@ -267,10 +266,10 @@
               perm.push(doc.id)
             })
             db.collection('users')
-              .doc('A0LFHdIWxSQoPznjWwwYIKWcnRr1')
+              .doc('A0LFHdIWxSQoPznjWwwYIKWcnRr1') // Jorge
               .update({ permissions: perm })
             db.collection('users')
-              .doc('PXhNsledHeTxWWzyOkSkKfDl1Bs1')
+              .doc('PXhNsledHeTxWWzyOkSkKfDl1Bs1') // Max
               .update({ permissions: perm })
           })
       // max PXhNsledHeTxWWzyOkSkKfDl1Bs1

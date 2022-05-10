@@ -35,23 +35,6 @@
         default: null,
       },
     },
-    data () {
-      return {
-        data: [],
-      }
-    },
-    created () {},
-    methods: {
-      test () {
-      // console.log(this.datos[0])
-      // console.table(this.datos)
-      },
-    },
   }
 </script>
 
-<style scoped>
-.color {
-  color: white;
-}
-</style>

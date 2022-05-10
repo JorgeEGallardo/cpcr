@@ -2,7 +2,7 @@
   <v-card
     outlined
     hover
-    class="center centro primary"
+    class="center primary"
     width="250px"
     height="275px"
     @click="updateVideo"
@@ -13,7 +13,7 @@
       :src="srcImg"
       :lazy-src="srcImg"
     />
-    <v-card-title class="d-flex text-h4 justify-center primary white">
+    <v-card-title class="d-flex text-h4 justify-center primary white--text">
       {{ videoTitulo }}
     </v-card-title>
   </v-card>
@@ -49,12 +49,3 @@
     },
   }
 </script>
-
-<style scoped>
-.centro {
-  text-align: center;
-}
-.white {
-  color: white;
-}
-</style>

@@ -133,8 +133,3 @@
     },
   }
 </script>
-<style scoped>
-.color {
-  color: white;
-}
-</style>

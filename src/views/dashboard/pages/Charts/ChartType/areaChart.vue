@@ -2,8 +2,7 @@
   <v-container>
     <v-card class="color center">
       <v-card-title
-        class="text-h4 primary center color"
-        color="white"
+        class="text-h4 primary center white--text"
       >
         {{ datos[0].titulo }}
       </v-card-title>
@@ -16,6 +15,7 @@
           loading="Cargando"
           :min="null"
           :curve="this.datos[0].curve"
+          :download="{background: '#FFFFFF'}"
         />
       </div>
     </v-card>
@@ -29,39 +29,5 @@
         default: null,
       },
     },
-    data () {
-      return {
-      }
-    },
-    methods: {
-      // minimo () {
-      //   var temp = Object.values(this.datos[0].data).map(num => {
-      //     return Number(num)
-      //   })
-      //   var min = Math.min(...temp)
-      //   return Math.ceil(min - min * 0.005)
-      // },
-      test () {
-      // this.datos.forEach(element => {
-      //   this.datos2[element] = element.data
-      //   this.datos3 = Object.keys(this.datos2[element])
-      // })
-      // console.table(this.datos[0].data)
-      // console.table(this.datos2)
-      // //
-      // this.datos2 = this.datos[0].data
-      // console.log(this.datos2)
-      // var size = Object.keys(this.datos2).lengths
-      // const sliced = Object.fromEntries(Object.entries(this.datos2).slice(-3))
-      // console.log(sliced, ' ', size)
-      // //
-      },
-    },
   }
 </script>
-
-<style scoped>
-.color {
-  color: white;
-}
-</style>

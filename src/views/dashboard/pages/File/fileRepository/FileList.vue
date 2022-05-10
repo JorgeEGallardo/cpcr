@@ -2,21 +2,19 @@
   <v-card
     outlined
     hover
-    class="center overflow-auto color"
+    class="center overflow-auto white--text"
     height="140px"
     width="1000"
     @click="popUp"
   >
     <v-card-title
-      class="text primary"
-      color="white"
+      class="text-h3 primary"
     >
       {{ fileTitle }}
     </v-card-title>
     <v-divider />
     <v-card-text
-      class="subtexto"
-      color="black"
+      class="text-h4"
     >
       Enlace: " {{ fileUrl }} "
     </v-card-text>
@@ -40,15 +38,3 @@
     },
   }
 </script>
-
-<style scoped>
-.text {
-  font-size: 20px;
-}
-.color {
-  color: white;
-}
-.subtexto {
-  font-size: 12px;
-}
-</style>
