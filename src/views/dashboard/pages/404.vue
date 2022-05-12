@@ -53,7 +53,7 @@
     data () {
       return {
         image: require('@/assets/riven.png'),
-        image2: require('@/assets/5a9435e345c35.gif'),
+        image2: require('@/assets/8m4gpea98sq51.gif'),
         visible: true,
         easter: false,
       }

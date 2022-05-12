@@ -1,8 +1,8 @@
 <template>
   <v-container>
-    <v-card class="color center">
+    <v-card class="justify-center">
       <v-card-title
-        class="text-h4 primary center white--text"
+        class="d-flex text-h4 primary justify-center white--text"
       >
         {{ datos[0].titulo }}
       </v-card-title>
