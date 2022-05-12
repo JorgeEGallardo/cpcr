@@ -87,6 +87,7 @@
     },
 
     data: () => ({
+      items2: [],
       items: [
       /* {
           title: 'Listas bloqueadas',
@@ -173,6 +174,12 @@
                 .doc(permission1[key])
                 .get()
                 .then(perm => {
+                  // items pero en objeto {idDelpermiso: {atributos}
+                  // this.items2 = {
+                  //   ...this.items2,
+                  //   [perm.id]: perm.data(),
+                  // }
+                  // items en array index: atributos
                   this.items.push(perm.data())
                 })
             })

@@ -119,17 +119,17 @@
 </template>
 
 <script>
-  // Components
-  // import { VHover, VListItem } from 'vuetify/lib'
+// Components
+// import { VHover, VListItem } from 'vuetify/lib'
 
-  // Utilities
+// Utilities
   import { mapState, mapMutations } from 'vuex'
 
   export default {
     name: 'DashboardCoreAppBar',
 
     components: {
-      /* AppBarItem: {
+    /* AppBarItem: {
         render (h) {
           return h(VHover, {
             scopedSlots: {
@@ -165,7 +165,7 @@
       notifications: [
         'Mike John Responded to your email',
         'You have 5 new tasks',
-        'You\'re now friends with Andrew',
+        "You're now friends with Andrew",
         'Another Notification',
         'Another one',
       ],
