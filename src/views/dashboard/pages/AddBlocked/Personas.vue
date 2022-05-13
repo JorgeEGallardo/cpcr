@@ -23,6 +23,19 @@
           <v-form ref="form">
             <v-container class="py-0">
               <v-row>
+                <v-overlay
+                  :value="overlay"
+                  opacity="0.25"
+                  absolute
+                  z-index="0"
+                >
+                  <v-progress-circular
+                    indeterminate
+                    color="primary"
+                    size="100"
+                    width="10"
+                  />
+                </v-overlay>
                 <v-col
                   cols="12"
                   md="4"
@@ -145,9 +158,10 @@
                   class="text-right"
                 >
                   <v-btn
+                    :disabled="overlay"
                     color="primary"
                     class="mr-0"
-                    @click="createPost"
+                    @click="createPost();overlay = !overlay"
                   >
                     Agregar persona bloqueada
                   </v-btn>
@@ -180,6 +194,7 @@
           is_active: true,
           fechafolio: new Date(Date.now()).toISOString().substr(0, 10),
         },
+        overlay: false,
       }
     },
     methods: {
@@ -188,17 +203,19 @@
         axios
           .post('http://10.35.1.106:8000/api/blocked', this.formData)
           .then(response => {
+            this.overlay = false
             // //console.log(response)
             this.$toast.success(this.formData.nombre + ' registrado con éxito.', {
               position: 'bottom-right',
             })
             this.$refs.form.reset()
           })
-          .catch(error =>
+          .catch(error => {
+            this.overlay = false
             this.$toast.error('Algo anda mal: ' + error, {
               position: 'bottom-right',
-            }),
-          )
+            })
+          })
       },
     },
   }
