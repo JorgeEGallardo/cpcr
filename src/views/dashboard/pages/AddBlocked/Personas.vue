@@ -14,12 +14,10 @@
             <div class="text-h3 font-weight-light">
               Personas bloqueadas
             </div>
-
             <div class="text-subtitle-1 font-weight-light">
               Agregar nueva persona bloqueada
             </div>
           </template>
-
           <v-form ref="form">
             <v-container class="py-0">
               <v-row>
@@ -47,7 +45,6 @@
                     label="Nombre completo"
                   />
                 </v-col>
-
                 <v-col
                   cols="12"
                   md="4"
@@ -59,7 +56,6 @@
                     class="purple-input"
                   />
                 </v-col>
-
                 <v-col cols="12">
                   <v-text-field
                     id="instruccion"
@@ -68,7 +64,6 @@
                     class="purple-input"
                   />
                 </v-col>
-
                 <v-col
                   cols="12"
                   md="6"
@@ -122,7 +117,6 @@
                     />
                   </v-menu>
                 </v-col>
-
                 <v-col
                   cols="12"
                   sm="6"
@@ -152,15 +146,14 @@
                     />
                   </v-menu>
                 </v-col>
-
                 <v-col
                   cols="12"
-                  class="text-right"
+                  md="4"
                 >
                   <v-btn
                     :disabled="overlay"
                     color="primary"
-                    class="mr-0"
+                    class="d-flex center"
                     @click="createPost();overlay = !overlay"
                   >
                     Agregar persona bloqueada
@@ -212,7 +205,7 @@
           })
           .catch(error => {
             this.overlay = false
-            this.$toast.error('Algo anda mal: ' + error, {
+            this.$toast.error('Algo anda mal ' + error, {
               position: 'bottom-right',
             })
           })

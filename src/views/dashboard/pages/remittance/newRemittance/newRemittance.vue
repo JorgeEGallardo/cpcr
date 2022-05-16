@@ -18,6 +18,19 @@
       <v-form ref="form">
         <v-container>
           <v-row>
+            <v-overlay
+              :value="overlay"
+              opacity="0.25"
+              absolute
+              z-index="0"
+            >
+              <v-progress-circular
+                indeterminate
+                color="primary"
+                size="100"
+                width="10"
+              />
+            </v-overlay>
             <v-col
               cols="12"
               md="2"
@@ -153,11 +166,13 @@
             </v-col>
             <v-col
               cols="12"
-              md="md"
+              md="12"
+              class="d-flex justify-center"
             >
               <v-btn
+                :disabled="overlay"
                 color="primary"
-                @click="newRemittance"
+                @click="newRemittance();overlay = !overlay"
               >
                 Añadir
               </v-btn>
@@ -192,6 +207,8 @@
           fechaReal: firebase.firestore.Timestamp.fromDate(new Date()),
           descripcion: '',
         },
+        overlay: false,
+
       }
     },
     computed: {
@@ -204,12 +221,14 @@
           db.collection('remittanceList')
             .add(data)
             .then(res => {
+              this.overlay = false
               this.$toast.success('Se ha añadido: ' + this.formData.nombreSocio, {
                 position: 'bottom-right',
               })
               this.$refs.form.reset()
             })
         } catch (error) {
+          this.overlay = false
           this.$toast.error('Hubo un error', {
             position: 'bottom-right',
           })

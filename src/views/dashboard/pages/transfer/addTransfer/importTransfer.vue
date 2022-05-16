@@ -17,6 +17,19 @@
       </template>
       <v-form ref="form">
         <v-container>
+          <v-overlay
+            :value="overlay"
+            opacity="0.25"
+            absolute
+            z-index="0"
+          >
+            <v-progress-circular
+              indeterminate
+              color="primary"
+              size="100"
+              width="10"
+            />
+          </v-overlay>
           <v-row>
             <v-col
               cols="12"
@@ -152,11 +165,13 @@
             </v-col>
             <v-col
               cols="12"
-              md="md"
+              md="12"
+              class="d-flex justify-center"
             >
               <v-btn
+                :disabled="overlay"
                 color="primary"
-                @click="addTransfer"
+                @click="addTransfer(); overlay = !overlay"
               >
                 Añadir
               </v-btn>
@@ -191,6 +206,7 @@
           fechaReal: firebase.firestore.Timestamp.fromDate(new Date()),
           descripcion: '',
         },
+        overlay: false,
       }
     },
     computed: {
@@ -203,12 +219,14 @@
           db.collection('transfList')
             .add(data)
             .then(res => {
+              this.overlay = false
               this.$toast.success('Se ha añadido: ' + data.nombreSocio, {
                 position: 'bottom-right',
               })
               this.$refs.form.reset()
             })
         } catch (error) {
+          this.overlay = false
           this.$toast.error('Hubo un error', {
             position: 'bottom-right',
           })
