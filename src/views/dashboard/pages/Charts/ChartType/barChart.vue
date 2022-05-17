@@ -2,7 +2,7 @@
   <v-container>
     <v-card class="justify-center">
       <v-card-title
-        class="d-flex text-h4 primary justify-center white--text"
+        class="d-flex text-h4 primary white--text"
       >
         {{ datos[0].titulo }} (barras)
       </v-card-title>

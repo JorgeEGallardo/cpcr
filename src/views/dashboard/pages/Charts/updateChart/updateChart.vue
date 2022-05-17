@@ -14,7 +14,7 @@
           Actualizar con informacion mas reciente
         </div>
       </template>
-      <v-form>
+      <v-form ref="form">
         <v-row>
           <v-col>
             <v-select
@@ -132,7 +132,8 @@
           .collection(this.coleccion)
           .doc(this.categoria)
           .update(this.temporal2)
-        this.$toast.success('actualizado, Fecha: ' + this.fecha + ' Cantidad:' + this.cantidad, {
+          this.$refs.form.reset()
+          this.$toast.success('actualizado, Fecha: ' + this.fecha + ' Cantidad:' + this.cantidad, {
           position: 'bottom-right',
         })
       },
