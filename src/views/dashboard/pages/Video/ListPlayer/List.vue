@@ -63,7 +63,9 @@
           .doc(this.user.data.uid)
           .set({ videoId: this.videoid })
           .catch(error => {
-            alert('No se pudo actualizar el registro' + error)
+            this.$toast.error('Hubo un error', error, {
+              position: 'bottom-right',
+            })
           })
       },
     },

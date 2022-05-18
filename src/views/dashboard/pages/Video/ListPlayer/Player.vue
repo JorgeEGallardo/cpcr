@@ -47,7 +47,9 @@
           this.visibilidad = true
         })
         .catch(error => {
-          alert('Error getting document:', error)
+          this.$toast.error('Hubo un error ', error, {
+            position: 'bottom-right',
+          })
         })
     },
     methods: {},

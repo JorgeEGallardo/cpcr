@@ -132,10 +132,13 @@
           .collection(this.coleccion)
           .doc(this.categoria)
           .update(this.temporal2)
-          this.$refs.form.reset()
-          this.$toast.success('actualizado, Fecha: ' + this.fecha + ' Cantidad:' + this.cantidad, {
-          position: 'bottom-right',
-        })
+        this.$refs.form.reset()
+        this.$toast.success(
+          'actualizado, Fecha: ' + this.fecha + ' Cantidad:' + this.cantidad,
+          {
+            position: 'bottom-right',
+          },
+        )
       },
     },
   }

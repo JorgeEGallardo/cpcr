@@ -49,13 +49,15 @@
                 label="Recuperación"
               />
             </v-col>
+            <v-col>
+              <v-btn
+                color="primary"
+                @click="updateData"
+              >
+                Actualizar datos
+              </v-btn>
+            </v-col>
           </v-row>
-          <v-btn
-            color="primary"
-            @click="updateData"
-          >
-            Actualizar datos
-          </v-btn>
         </v-contaner>
       </v-form>
     </base-material-card>

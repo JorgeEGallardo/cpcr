@@ -104,10 +104,22 @@
         db.collection('videoList')
           .add(data)
           .then(res => {
-            alert('se ha añadido: ' + this.formData.titulo + this.formData.url + this.formData.nivel)
+            this.$toast.success(
+              'se ha añadido: ' +
+                this.formData.titulo +
+                ' ' +
+                this.formData.url +
+                ' ' +
+                this.formData.nivel,
+              {
+                position: 'bottom-right',
+              },
+            )
           })
           .catch(error => {
-            alert('No se pudo actualizar el registro' + error)
+            this.$toast.error('Hubo un error', error, {
+              position: 'bottom-right',
+            })
           })
       },
     },

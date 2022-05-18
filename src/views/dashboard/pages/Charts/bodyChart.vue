@@ -127,7 +127,9 @@
               })
           }
         } catch (error) {
-          alert('Hubó un error')
+          this.$toast.error('Hubo un error', error, {
+            position: 'bottom-right',
+          })
         }
       },
     },

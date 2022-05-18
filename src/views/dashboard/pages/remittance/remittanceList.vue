@@ -138,7 +138,7 @@
               })
             })
         } catch (error) {
-          this.$toast.error('Hubo un error', {
+          this.$toast.error('Hubo un error', error, {
             position: 'bottom-right',
           })
         }
@@ -152,7 +152,9 @@
           this.remesas = []
           this.refTable()
         } catch (error) {
-          alert('Hubo un error')
+          this.$toast.error('Hubo un error ' + error, {
+            position: 'bottom-right',
+          })
         }
       },
     },

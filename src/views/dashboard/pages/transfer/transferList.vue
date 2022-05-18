@@ -133,7 +133,7 @@
               })
             })
         } catch (error) {
-          this.$toast.error('Hubo un error', {
+          this.$toast.error('Hubo un error: ' + error, {
             position: 'bottom-right',
           })
         }
@@ -147,7 +147,9 @@
           this.transferencia2 = []
           this.refTable()
         } catch (error) {
-          alert('Hubo un error')
+          this.$toast.error('Hubo un error ' + error, {
+            position: 'bottom-right',
+          })
         }
       },
     },

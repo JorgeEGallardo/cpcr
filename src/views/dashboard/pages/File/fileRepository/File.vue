@@ -59,7 +59,8 @@
       },
     },
     created () {
-      db.collection('fileList').orderBy('date_cap', 'desc')
+      db.collection('fileList')
+        .orderBy('date_cap', 'desc')
         .get()
         .then(res => {
           res
@@ -67,7 +68,9 @@
               this.archivos.push(doc.data())
             })
             .catch(error => {
-              alert('Error getting document:', error)
+              this.$toast.error('Hubo un error ' + error, {
+                position: 'bottom-right',
+              })
             })
         })
     },
