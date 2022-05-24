@@ -36,7 +36,7 @@
                 </v-overlay>
                 <v-col
                   cols="12"
-                  md="4"
+                  md="7"
                 >
                   <v-text-field
                     id="nombre"
@@ -47,7 +47,7 @@
                 </v-col>
                 <v-col
                   cols="12"
-                  md="4"
+                  md="5"
                 >
                   <v-text-field
                     id="rfc"
