@@ -61,36 +61,27 @@
               :style="estilo[r.id]"
             >
               <td class="mt-1 center">
-                <v-btn
-                  height="50"
-                  small
-                  depressed
-                  outlined
-                  class="px-2 py-2 mr-2 circulo borderB"
+                <v-icon
+                  color="#01579B"
+                  class="px-2 py-2 mr-2"
                   @click="colorEstilo(1, r.id)"
                 >
-                  <v-icon>mdi-file-outline</v-icon>
-                </v-btn>
-                <v-btn
-                  height="50"
-                  small
-                  depressed
-                  outlined
-                  class="px-2 py-2 mr-2 circulo borderG"
+                  mdi-file-outline
+                </v-icon>
+                <v-icon
+                  color="#1B5E20"
+                  class="px-2 py-2 mr-2"
                   @click="colorEstilo(2, r.id)"
                 >
-                  <v-icon>mdi-file-upload-outline</v-icon>
-                </v-btn>
-                <v-btn
-                  height="50"
-                  small
-                  depressed
-                  outlined
-                  class="pa-2 py-2 mr-2 circulo borderP"
+                  mdi-file-upload-outline
+                </v-icon>
+                <v-icon
+                  color="#004D40"
+                  class="pa-2 py-2 mr-2"
                   @click="colHide(r.id)"
                 >
-                  <v-icon>mdi-file-send-outline</v-icon>
-                </v-btn>
+                  mdi-file-send-outline
+                </v-icon>
               </td>
               <td class="center">
                 {{ r.regulatorio }}
