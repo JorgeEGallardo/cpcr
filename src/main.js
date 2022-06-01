@@ -28,6 +28,7 @@ import VueTextareaAutosize from 'vue-textarea-autosize'
 import VueYoutube from 'vue-youtube'
 import Toast from 'vue-toastification'
 import 'vue-toastification/dist/index.css'
+import VueCryptojs from 'vue-cryptojs'
 Vue.config.productionTip = false
 Vue.use(VueYoutube)
 Vue.use(VueTextareaAutosize)
@@ -37,6 +38,7 @@ Vue.use(Toast, {
   maxToasts: 5,
   newestOnTop: true,
 })
+Vue.use(VueCryptojs)
 Chartkick.options = {
   library: { animation: { easing: 'linear', duration: 100 } },
 }

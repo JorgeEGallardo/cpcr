@@ -220,6 +220,12 @@ const router = new Router({
           component: () =>
             import('@/views/dashboard/pages/goals/addGoals/addGoals.vue'),
         },
+        {
+          name: 'Gestor de contraseñas',
+          path: '/gestor',
+          component: () =>
+            import('@/views/dashboard/pages/PasswordManager/passwordComponent.vue'),
+        },
       ],
     },
   ],
