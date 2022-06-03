@@ -32,6 +32,7 @@
           pass: '',
           uid: this.$store.state.user.data.uid,
           displayname: this.$store.state.user.data.displayName,
+          decryptedPass: '',
         },
         fetchData: [],
         decryptedText: '',
