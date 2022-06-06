@@ -1,24 +1,41 @@
 <template>
-  <v-form action="">
-    <v-text-field
-      v-model="formData.site"
-      label="Lugar"
-    />
-    <v-text-field
-      v-model="formData.user"
-      label="Usuario"
-    />
-    <v-text-field
-      v-model="formData.pass"
-      label="Contraseña"
-      type="password"
-    />
-    <v-btn @click="addPassword()">
-      añadir
-    </v-btn>
-    <v-btn @click="fetchPassword()">
-      fetch
-    </v-btn>
+  <v-form ref="form">
+    <v-row>
+      <v-col
+        cols="12"
+        md="6"
+      >
+        <v-text-field
+          v-model="formData.user"
+          label="Usuario"
+        />
+      </v-col>
+      <v-col
+        cols="12"
+        md="6"
+      >
+        <v-text-field
+          v-model="formData.pass"
+          label="Contraseña"
+          :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="show ? 'text' : 'password'"
+          @click:append="show = !show"
+        />
+      </v-col>
+      <v-col cols="12">
+        <v-text-field
+          v-model="formData.site"
+          label="Lugar"
+        />
+      </v-col>
+
+      <v-btn @click="addPassword()">
+        añadir
+      </v-btn>
+      <v-btn @click="dummyText()">
+        dummy
+      </v-btn>
+    </v-row>
   </v-form>
 </template>
 <script>
@@ -33,7 +50,10 @@
           uid: this.$store.state.user.data.uid,
           displayname: this.$store.state.user.data.displayName,
           decryptedPass: '',
+          icon: 'mdi-eye',
+          bullet: '',
         },
+        show: false,
         fetchData: [],
         decryptedText: '',
         site: '',
@@ -48,6 +68,7 @@
         alert('Ouch!')
       },
       async addPassword () {
+        this.dummyText()
         const hash = this.$CryptoJS.AES.encrypt(
           this.formData.pass,
           'Secret Passphrase',
@@ -66,25 +87,15 @@
           .collection('password')
           .doc(this.formData.uid)
           .set(this.dataFinal)
+        this.$refs.form.reset()
       },
-      async fetchPassword () {
-        console.log('traer de la db')
-        await db
-          .collection('password')
-          .doc(this.formData.uid)
-          .get()
-          .then(doc => {
-            this.fetchData = doc.data()
-            console.log(this.fetchData)
-          })
-        console.log('Encriptada')
-        console.log(this.fetchData.OpenFin.pass)
-        this.decryptedText = this.$CryptoJS.AES.decrypt(
-          this.fetchData.OpenFin.pass,
-          'Secret Passphrase',
-        ).toString(this.CryptoJS.enc.Utf8)
-        console.log('Desencriptada')
-        console.log(this.decryptedText)
+      async dummyText () {
+        var bullet2 = ''
+        const length = this.formData.pass.length
+        for (let i = 0; i < length; i++) {
+          bullet2 += '•'
+        }
+        this.formData.bullet = bullet2
       },
     },
   }

@@ -2,17 +2,20 @@
   <v-data-table
     :headers="headers"
     :items="propertyNames"
-    :single-expand="true"
-    :expanded.sync="expanded"
-    show-expand
   >
     <template v-slot:[`item.actions`]="{ item }">
       <v-icon
-        small
         class="mr-2"
         @click="openAuth(item)"
       >
-        mdi-eye
+        {{ item.icon }}
+      </v-icon>
+      <v-icon
+        class="mr-2"
+        color="red"
+        @click="deleteItem(item)"
+      >
+        mdi-delete
       </v-icon>
     </template>
     <template v-slot:top>
@@ -47,23 +50,10 @@
         </v-card>
       </v-dialog>
     </template>
-    <template v-slot:expanded-item="{ item }">
-      <td
-        v-if="VisiblidadHash"
-        :colspan="headers.length"
-      >
-        {{ item.pass }}
-      </td>
-      <td
-        v-if="VisibiidadPass"
-        :colspan="headers.length"
-      >
-        {{ item.decryptedPass }}
-      </td>
-    </template>
   </v-data-table>
 </template>
 <script>
+  import firebase from 'firebase'
   import { db } from '../../../../main'
   import { mapState } from 'vuex'
   export default {
@@ -77,6 +67,7 @@
         cardTitle: '',
         VisiblidadHash: true,
         VisibiidadPass: false,
+        eyeState: true,
       }
     },
     computed: {
@@ -90,16 +81,15 @@
             value: 'site',
           },
           { text: 'Usuario', value: 'user' },
-          { text: 'Contraseña', value: 'pass' },
+          { text: 'Contraseña', value: 'bullet' },
           {
-            text: 'Mostrar contraseña',
+            text: 'Acciones',
             value: 'actions',
             sortable: false,
             align: 'center',
           },
-          { text: 'Mostrar descripcion', value: 'data-table-expand' },
           { text: 'Id', value: 'pass', align: ' d-none', sortable: false },
-          { text: 'decryptedPass', value: 'decryptedPass', align: ' d-none', sortable: false },
+          { text: 'icono', value: 'icon', align: ' d-none', sorteable: false },
         ]
       },
     },
@@ -122,12 +112,9 @@
         await db
           .collection('password')
           .doc(this.$store.state.user.data.uid)
-          .get()
-          .then(doc => {
+          .onSnapshot(doc => {
             this.fetchData = doc.data()
-            console.log(this.fetchData)
             this.propertyNames = Object.values(this.fetchData)
-            console.log(this.propertyNames)
           })
       // console.log('Encriptada')
       // console.log(this.fetchData.OpenFin.pass)
@@ -139,7 +126,6 @@
       // console.log(this.decryptedText)
       },
       decryptPassword (pass) {
-        this.decrypted = ''
         console.log(pass)
         this.dialog = false
         console.log('Encriptada')
@@ -151,17 +137,43 @@
         console.log(this.decrypted)
         pass = ''
       },
-      async openAuth (pass) {
-        this.VisiblidadHash = !this.VisiblidadHash
-        this.VisibiidadPass = !this.VisiblidadPass
-        console.log(pass)
-        this.decrypted = this.$CryptoJS.AES.decrypt(
-          pass.pass,
-          'Secret Passphrase',
-        ).toString(this.CryptoJS.enc.Utf8)
-        console.log('Desencriptada')
-        this.propertyNames.decryptedPass = this.decrypted
-        alert(this.decrypted)
+      async openAuth (item) {
+        if (item.icon === 'mdi-eye') {
+          item.icon = 'mdi-eye-off'
+          this.VisiblidadHash = !this.VisiblidadHash
+          this.VisibiidadPass = !this.VisiblidadPass
+          console.log(item)
+          this.decrypted = this.$CryptoJS.AES.decrypt(
+            item.pass,
+            'Secret Passphrase',
+          ).toString(this.CryptoJS.enc.Utf8)
+          item.decryptedPass = this.decrypted
+          item.bullet = item.decryptedPass
+        } else if (item.icon === 'mdi-eye-off') {
+          item.icon = 'mdi-eye'
+          item.decryptedPass = ''
+          var bullet2 = ''
+          const length = item.bullet.length
+          for (let i = 0; i < length; i++) {
+            bullet2 += '•'
+          }
+          item.bullet = bullet2
+        }
+      },
+      async deleteItem (item) {
+        try {
+          await db
+            .collection('password')
+            .doc(this.$store.state.user.data.uid)
+            .get()
+            .then(doc => {
+              doc.ref.update({ [item.site]: firebase.firestore.FieldValue.delete() })
+            })
+        } catch (error) {
+          this.$toast.error('Hubo un error ' + error, {
+            position: 'bottom-right',
+          })
+        }
       },
     },
   }
