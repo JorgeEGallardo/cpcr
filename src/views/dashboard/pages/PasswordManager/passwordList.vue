@@ -2,8 +2,18 @@
   <v-data-table
     :headers="headers"
     :items="propertyNames"
+    dense
+    fixed-header
   >
     <template v-slot:[`item.actions`]="{ item }">
+      <v-icon
+        v-if="item.icon === 'mdi-eye-off'"
+        class="mr-2"
+        color="primary"
+        @click="copyToClipboard(item)"
+      >
+        mdi-clipboard-file-outline
+      </v-icon>
       <v-icon
         class="mr-2"
         @click="openAuth(item)"
@@ -12,13 +22,13 @@
       </v-icon>
       <v-icon
         class="mr-2"
-        color="red"
+        color="red darken-1"
         @click="deleteItem(item)"
       >
         mdi-delete
       </v-icon>
     </template>
-    <template v-slot:top>
+    <!-- <template v-slot:top>
       <v-dialog
         v-model="dialog"
         transition="dialog-bottom-transition"
@@ -49,7 +59,7 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-    </template>
+    </template> -->
   </v-data-table>
 </template>
 <script>
@@ -59,7 +69,6 @@
   export default {
     data () {
       return {
-        expanded: [],
         decrypted: '',
         fetchData: {},
         propertyNames: [],
@@ -80,8 +89,8 @@
             sortable: false,
             value: 'site',
           },
-          { text: 'Usuario', value: 'user' },
-          { text: 'Contraseña', value: 'bullet' },
+          { text: 'Usuario', value: 'user', sortable: false },
+          { text: 'Contraseña', value: 'bullet', sortable: false },
           {
             text: 'Acciones',
             value: 'actions',
@@ -97,18 +106,7 @@
       this.fetchPassword()
     },
     methods: {
-      test (item) {
-        console.log(item)
-      },
-      cerrarDialogo () {
-        this.dialog = false
-      },
-      mostrarDialogo (item) {
-        console.log(item)
-        this.dialog = true
-      },
       async fetchPassword () {
-        console.log('traer de la db')
         await db
           .collection('password')
           .doc(this.$store.state.user.data.uid)
@@ -116,25 +114,13 @@
             this.fetchData = doc.data()
             this.propertyNames = Object.values(this.fetchData)
           })
-      // console.log('Encriptada')
-      // console.log(this.fetchData.OpenFin.pass)
-      // this.decryptedText = this.$CryptoJS.AES.decrypt(
-      // this.fetchData.OpenFin.pass,
-      // 'Secret Passphrase',
-      // ).toString(this.CryptoJS.enc.Utf8)
-      // console.log('Desencriptada')
-      // console.log(this.decryptedText)
       },
       decryptPassword (pass) {
-        console.log(pass)
         this.dialog = false
-        console.log('Encriptada')
         this.decrypted = this.$CryptoJS.AES.decrypt(
           pass,
-          'Secret Passphrase',
+          this.$store.state.user.data.uid,
         ).toString(this.CryptoJS.enc.Utf8)
-        console.log('Desencriptada')
-        console.log(this.decrypted)
         pass = ''
       },
       async openAuth (item) {
@@ -142,10 +128,9 @@
           item.icon = 'mdi-eye-off'
           this.VisiblidadHash = !this.VisiblidadHash
           this.VisibiidadPass = !this.VisiblidadPass
-          console.log(item)
           this.decrypted = this.$CryptoJS.AES.decrypt(
             item.pass,
-            'Secret Passphrase',
+            this.$store.state.user.data.uid,
           ).toString(this.CryptoJS.enc.Utf8)
           item.decryptedPass = this.decrypted
           item.bullet = item.decryptedPass
@@ -167,13 +152,66 @@
             .doc(this.$store.state.user.data.uid)
             .get()
             .then(doc => {
-              doc.ref.update({ [item.site]: firebase.firestore.FieldValue.delete() })
+              doc.ref.update({
+                [item.site]: firebase.firestore.FieldValue.delete(),
+              })
             })
         } catch (error) {
           this.$toast.error('Hubo un error ' + error, {
             position: 'bottom-right',
           })
         }
+      },
+      copyToClipboard (item) {
+        if (typeof navigator.clipboard === 'undefined') {
+          var textArea = document.createElement('textarea')
+          textArea.value = item.bullet
+          textArea.style.position = 'fixed' // avoid scrolling to bottom
+          document.body.appendChild(textArea)
+          textArea.focus()
+          textArea.select()
+
+          try {
+            var successful = document.execCommand('copy')
+            var msg = successful
+              ? 'Contraseña copiada al portapapeles'
+              : 'No se copio la contraseña'
+            this.$toast.success(msg, {
+              position: 'bottom-right',
+              timeout: 3016,
+              closeOnClick: false,
+              pauseOnFocusLoss: false,
+              pauseOnHover: true,
+              draggable: false,
+              closeButton: '',
+              hideProgressBar: true,
+              rtl: false,
+            })
+          } catch (err) {
+            this.$toast.error('La contraseña no pudo ser copiada', err, {
+              possition: 'bottom-right',
+            })
+          }
+
+          document.body.removeChild(textArea)
+          return
+        }
+        navigator.clipboard.writeText(item.bullet).then(
+          this.$toast.success('La contraseña fue copiada al portapapeles', {
+            position: 'bottom-right',
+            timeout: 3016,
+            closeOnClick: false,
+            pauseOnFocusLoss: false,
+            pauseOnHover: true,
+            draggable: false,
+            closeButton: '',
+            hideProgressBar: true,
+            rtl: false,
+          }),
+          function (err) {
+            alert('la contraseña no se ha copiado', err)
+          },
+        )
       },
     },
   }

@@ -17,9 +17,11 @@
       <!-- /Header -->
       <!-- Body -->
       <!-- Componente para añadir -->
-      <cpcr-password />
+      <cpcr-password class="mt-2" />
+      <p />
+      <hr>
       <!-- Componente para visualizar -->
-      <cpcr-passwordlist />
+      <cpcr-passwordlist class="mt-2" />
       <!-- /Body -->
     </base-material-card>
   </v-container>

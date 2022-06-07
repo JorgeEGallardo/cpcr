@@ -22,19 +22,28 @@
           @click:append="show = !show"
         />
       </v-col>
-      <v-col cols="12">
+      <v-col
+        cols="12"
+        md="10"
+      >
         <v-text-field
           v-model="formData.site"
-          label="Lugar"
+          label="Identificador"
+          hint="NO INCLUIR VALORES REPETIDOS"
         />
       </v-col>
-
-      <v-btn @click="addPassword()">
-        añadir
-      </v-btn>
-      <v-btn @click="dummyText()">
-        dummy
-      </v-btn>
+      <v-col
+        cols="12"
+        md="2"
+      >
+        <v-btn
+          class="d-flex center"
+          color="primary"
+          @click="addPassword()"
+        >
+          añadir
+        </v-btn>
+      </v-col>
     </v-row>
   </v-form>
 </template>
@@ -71,7 +80,7 @@
         this.dummyText()
         const hash = this.$CryptoJS.AES.encrypt(
           this.formData.pass,
-          'Secret Passphrase',
+          this.$store.state.user.data.uid,
         ).toString()
         this.formData.pass = hash
         var data = this.formData
@@ -99,10 +108,4 @@
       },
     },
   }
-
-//   db.collection("cities").doc("LA").set({
-//     name: "Los Angeles",
-//     state: "CA",
-//     country: "USA"
-// })
 </script>
